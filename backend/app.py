@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 app = Flask(
     __name__,
-    static_folder='../frontend/static',
+    static_folder='./static',
     static_url_path='/static'
 )
 
@@ -17,7 +17,7 @@ CORS(app)
 # Конфигурация
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/uploads')
-DB_PATH = os.path.join(BASE_DIR, 'orders.db')  # Просто в корне backend/
+DB_PATH = 'orders.db'
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
