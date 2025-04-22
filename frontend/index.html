@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аст</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="/static/uploads/logo_red.png" alt="Логотип магазина">
+            </div>
+            <nav class="header-nav">
+                <a href="#" class="nav-icon" title="Ассортимент">
+                    <img src="/static/uploads/catalog_ic.png" alt="Товары">
+                </a>
+                <a href="#" class="nav-icon" title="Заказы">
+                    <img src="/static/uploads/orders_ic.png" alt="Заказы">
+                </a>
+                <a href="#" class="nav-icon" title="Корзина">
+                    <img src="/static/uploads/cart_ic.png" alt="Корзина">
+                    <span id="header-cart-count">0</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Бордовый промо-блок -->
+    <section class="promo-banner">
+        <div class="promo-container">
+            <div class="promo-image">
+                <img src="/static/uploads/two.png" alt="О нашем бренде">
+            </div>
+            <div class="promo-text">
+                <h1>Простота — ключ к истинной элегантности.</h1>
+                <p>Добро пожаловать в мир <strong>Ульяны Аст</strong> — бренда, который несёт в себе современную классику, элегантность и премиальное качество.</p>
+                <p>Наша коллекция выполнена исключительно в чёрном и бордовом оттенках. Всё сочетается между собой.</p>
+                <p>Стиль. Неумолимость. Уверенность. Безвременье. Женственность.</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Товары -->
+        <section id="products" class="products-section">
+            <h2>Наш ассортимент</h2>
+            <div id="products-list" class="products-grid"></div>
+        </section>
+
+        <!-- Корзина -->
+        <section id="cart" class="cart-section">
+            <h2>Корзина (<span id="cart-count">0</span>)</h2>
+            <ul id="cart-items" class="cart-items"></ul>
+            <p class="cart-total">Итого: <span id="cart-total">0</span> руб.</p>
+            <button id="checkout-btn" class="btn btn-accent">Оформить заказ</button>
+        </section>
+    </main>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
