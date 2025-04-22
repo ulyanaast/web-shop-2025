@@ -12,7 +12,15 @@ app = Flask(
     static_url_path='/static'
 )
 
-CORS(app)
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "https://your-github-username.github.io",  # Ваш фронтенд
+            "http://localhost:8000"  # Для локальной разработки
+        ],
+        "methods": ["GET", "POST", "DELETE"]
+    }
+})
 
 # Конфигурация
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
