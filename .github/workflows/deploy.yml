@@ -1,13 +1,20 @@
 name: Deploy to GitHub Pages
+
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: mv frontend/* ./  # Переносит файлы из /frontend в корень
+      - run: mv frontend/* ./
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./
