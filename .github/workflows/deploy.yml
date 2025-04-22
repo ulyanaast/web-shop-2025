@@ -15,20 +15,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepare files
+      - name: Copy files to root
         run: |
-          # Удаляем старые файлы (кроме .git и .github)
-          find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name '.github' -exec rm -rf {} +
-          
-          # Копируем только нужное из frontend
+          # Копируем всё содержимое frontend в корень
           cp -r frontend/* .
+          
+          # Копируем отдельно папку static (если нужно сохранить структуру)
           cp -r frontend/static .
           
-          # Переименовываем файлы с кириллицей
-          rename 's/русские_символы/english_name/' static/uploads/* || true
+          # Копируем скрытые файлы (если есть)
+          cp -r frontend/.[^.]* . || true
+          
+          # Проверяем что скопировалось (для отладки)
+          ls -R
 
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
-      - uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
