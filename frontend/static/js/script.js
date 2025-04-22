@@ -3,7 +3,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Загрузка товаров
 async function loadProducts() {
-    const response = await fetch('/api/products');
+    const response = await fetch('https://ast-backend-rw3h.onrender.com/api/products');
     const products = await response.json();
     const container = document.getElementById('products-list');
     
@@ -78,7 +78,7 @@ document.getElementById('checkout-btn').addEventListener('click', async () => {
     if (cart.length === 0) return alert('Корзина пуста!');
     
     try {
-        const response = await fetch('/api/order', {
+        const response = await fetch('https://ast-backend-rw3h.onrender.com/api/order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ items: cart })
