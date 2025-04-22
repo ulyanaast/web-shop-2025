@@ -1,0 +1,13 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]  # Или "master", если у вас старая ветка
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: mv frontend/* ./  # Переносит файлы из /frontend в корень
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
