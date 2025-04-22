@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 permissions:
   contents: read
@@ -15,11 +15,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Move files from frontend to root
+      - name: Prepare files
         run: |
-          mv frontend/* .
-          mv frontend/.* . || true
-          
+          # Копируем всё содержимое frontend в корень
+          cp -r frontend/* .
+          cp -r frontend/.[^.]* . || true  # Игнорируем ошибки для скрытых файлов
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
