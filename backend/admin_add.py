@@ -31,7 +31,7 @@ def admin_panel():
                 if file and file.filename != '':
                     filename = secure_filename(file.filename)
                     file.save(UPLOAD_FOLDER / filename)
-                    image_path = f'uploads/{filename}'
+                    image_path = f"https://ast-backend-rw3h.onrender.com/static/uploads/{image_filename}"
             
             cursor.execute(
                 'INSERT INTO products (name, price, image_path) VALUES (?, ?, ?)',
