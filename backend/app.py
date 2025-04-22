@@ -12,15 +12,19 @@ app = Flask(
     static_url_path='/static'
 )
 
-CORS(app, resources={
-    r"/api/*": {
-        "origins": [
-            "https://your-github-username.github.io",  # Ваш фронтенд
-            "http://localhost:8000"  # Для локальной разработки
-        ],
-        "methods": ["GET", "POST", "DELETE"]
-    }
-})
+CORS(app, 
+     resources={
+         r"/api/*": {
+             "origins": [
+                 "https://ulyanaast.github.io",  # Ваш фронтенд
+                 "http://localhost:8000"         # Для локальной разработки
+             ],
+             "methods": ["GET", "POST", "OPTIONS"],
+             "allow_headers": ["Content-Type"]
+         }
+     },
+     supports_credentials=True
+)
 
 # Конфигурация
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -179,6 +183,13 @@ def static_files(filename):
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory('../frontend/static', 'favicon.ico')
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', 'https://ulyanaast.github.io')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+    return response
 
 
 if __name__ == '__main__':
