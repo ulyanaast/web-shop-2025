@@ -20,6 +20,7 @@ jobs:
           # Копируем всё содержимое frontend в корень
           cp -r frontend/* .
           cp -r frontend/.[^.]* . || true  # Игнорируем ошибки для скрытых файлов
+      - run: cp -r frontend/static .  # Копируем static в корень
 
       - uses: actions/upload-pages-artifact@v3
         with:
