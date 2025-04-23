@@ -8,7 +8,6 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-# Настройки CORS (должны быть ПЕРЕД всеми роутами!)
 CORS(app, 
      resources={
          r"/api/*": {
