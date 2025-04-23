@@ -7,10 +7,10 @@ async function loadProducts() {
         const response = await fetch('https://ast-backend-rw3h.onrender.com/api/products', {
             method: 'GET',
             mode: 'cors',
+            credentials: 'include',
             headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include'
+                'Accept': 'application/json'  // Убрали Content-Type для GET-запроса
+            }
         });
 
         if (!response.ok) {
