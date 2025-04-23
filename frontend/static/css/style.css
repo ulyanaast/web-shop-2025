@@ -20,6 +20,28 @@
   overflow: hidden;
 }
 
+/* Кастомизация кнопок */
+.btn-dark {
+  background-color: var(--bs-dark) !important;
+  border-color: var(--bs-dark) !important;
+}
+
+.btn-dark:hover {
+  background-color: #600018 !important;
+  border-color: #600018 !important;
+}
+
+/* Для кнопки оформления заказа */
+#checkout-btn {
+  background-color: var(--bs-dark) !important;
+  border-color: var(--bs-dark) !important;
+}
+
+#checkout-btn:hover {
+  background-color: #600018 !important;
+  border-color: #600018 !important;
+}
+
 /* Десктопная версия (≥992px) */
 @media (min-width: 992px) {
   .promo-banner {
@@ -56,7 +78,7 @@
   .promo-image {
     max-height: 300px !important;
     width: auto !important;
-    margin: 3rem auto 40px !important;
+    margin: 2rem auto 40px !important;
     border-radius: 12px !important;
   }
   
