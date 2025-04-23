@@ -122,13 +122,13 @@ body {
     font-family: 'Yeseva One', serif;
     font-weight: normal;
     font-size: 3.5rem;
-    line-height: 1.1;
+    line-height: 1.2;
     margin-bottom: 0 0 7px 0; /* сверху | справа | снизу | слева */
 }
 
 .promo-text p {
     margin-bottom: 15px;
-    line-height: 1.6;
+    line-height: 1.2;
     font-size: 1.1rem;
 }
 
