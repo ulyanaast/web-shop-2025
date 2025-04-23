@@ -50,17 +50,9 @@
 }
 /* Для компьютеров */
 @media (min-width: 992px) {
-    .promo-image {
-        flex: 0 0 40% !important; /* Фиксируем ширину изображения */
-        max-width: 40% !important;
-    }
     .promo-image img {
         max-height: 400px; /* Жёсткое ограничение по высоте */
         width: auto;
         max-width: 100%;
-    }
-    .promo-text {
-        flex: 0 0 55% !important; /* Фиксируем ширину текста */
-        max-width: 55% !important;
     }
 }
