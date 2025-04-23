@@ -258,7 +258,7 @@ body {
 
     /* Шапка */
     .header-container {
-        padding: 15px 15px;
+        padding: 0 15px;
     }
 
     .logo img {
@@ -271,10 +271,6 @@ body {
     }
 
     /* Промо-блок */
-    .promo-banner {
-        padding: 20px 0;
-    }
-
     .promo-container {
         flex-direction: column;
         gap: 15px;
