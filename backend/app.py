@@ -182,6 +182,20 @@ def static_files(filename):
 def favicon():
     return send_from_directory('../frontend/static', 'favicon.ico')
 
+@app.route('/api/admin/orders')
+def get_orders():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM orders ORDER BY id DESC')
+    orders = cursor.fetchall()
+    conn.close()
+    return jsonify([{
+        "id": o[0],
+        "product_name": o[1],
+        "price": o[2],
+        "order_date": o[3]
+    } for o in orders])
+
 @app.after_request
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = 'https://ulyanaast.github.io'
