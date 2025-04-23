@@ -19,6 +19,17 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.admin-container h1 {
+    font-family: 'Yeseva One', serif;
+    font-weight: normal;
+    text-align: center;
+    color: white;
+    background-color: #800020;
+    padding: 20px;
+    margin: -20px -20px 20px -20px; /* Расширяем на всю ширину контейнера */
+    border-radius: 8px 8px 0 0;
+}
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -86,7 +97,6 @@ button {
     cursor: pointer;
 }
 
-/* Новые стили для загрузки изображений */
 .image-upload-container {
     margin-top: 10px;
 }
