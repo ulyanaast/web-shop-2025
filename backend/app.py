@@ -62,7 +62,7 @@ def get_products():
     cursor.execute('''
         SELECT id, name, price, 
                CASE WHEN image_path IS NOT NULL 
-               THEN '/static/' || image_path 
+               THEN 'https://ast-backend-rw3h.onrender.com/static/uploads/' || image_path
                ELSE NULL END as image 
         FROM products
     ''')
@@ -170,9 +170,13 @@ def home():
 def admin():
     return send_from_directory('../frontend/templates', 'admin.html')
 
+@app.route('/static/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(os.path.join('static', 'uploads'), filename)
+
 @app.route('/static/<path:filename>')
 def static_files(filename):
-    return send_from_directory('../frontend/static', filename)
+    return send_from_directory('static', filename)
 
 @app.route('/favicon.ico')
 def favicon():
