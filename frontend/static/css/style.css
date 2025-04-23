@@ -38,7 +38,14 @@
 }
 
 /* Дополнительные адаптивные настройки уменьшения заголовков на мини экранах*/
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+    .promo-banner .order-1 { /* Текстовый блок */
+        margin-top: 0.5rem !important;
+        padding-top: 0 !important;
+    }
+    .promo-banner .order-2 { /* Блок с изображением */
+        margin-top: 2rem !important;
+    }
     .display-4 {
         font-size: 2.5rem;
     }
