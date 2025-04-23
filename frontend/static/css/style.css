@@ -14,6 +14,11 @@
     background-color: var(--bs-dark) !important;
 }
 
+.promo-text p {
+    margin-bottom: 1.5rem !important; /* Увеличиваем отступ снизу */
+    line-height: 1.6;
+}
+
 /* Анимация карточек товаров */
 .product-card {
     transition: transform 0.3s;
@@ -43,11 +48,19 @@
 .object-fit-contain {
     object-fit: contain;
 }
-/* Для компьютеров (экраны шире 768px) */
-@media (min-width: 768px) {
+/* Для компьютеров */
+@media (min-width: 992px) {
+    .promo-image {
+        flex: 0 0 40% !important; /* Фиксируем ширину изображения */
+        max-width: 40% !important;
+    }
     .promo-image img {
-        max-width: 250px;
-        height: auto;
-        margin: 0 auto;
+        max-height: 400px; /* Жёсткое ограничение по высоте */
+        width: auto;
+        max-width: 100%;
+    }
+    .promo-text {
+        flex: 0 0 55% !important; /* Фиксируем ширину текста */
+        max-width: 55% !important;
     }
 }
