@@ -16,7 +16,7 @@
 
 /* Промо-блок - общие стили */
 .promo-banner {
-  padding: 30px 0;
+  padding: 40px 0;
   overflow: hidden;
 }
 
@@ -45,7 +45,7 @@
 /* Десктопная версия (≥992px) */
 @media (min-width: 992px) {
   .promo-banner {
-    padding: 80px 0;
+    padding: 60px 0;
   }
   
   .promo-image {
