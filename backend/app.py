@@ -22,7 +22,7 @@ CORS(app,
 
 # Конфигурация
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/uploads')
+UPLOAD_FOLDER = os.path.join(BASE_DIR, '../frontend/static/uploads')
 DB_PATH = 'orders.db'
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -62,7 +62,7 @@ def get_products():
     cursor.execute('''
         SELECT id, name, price, 
                CASE WHEN image_path IS NOT NULL 
-               THEN 'https://ast-backend-rw3h.onrender.com/static/uploads/' || image_path
+               THEN 'https://ast-backend-rw3h.onrender.com/static/uploads/' || REPLACE(image_path, 'uploads/', '')
                ELSE NULL END as image 
         FROM products
     ''')
@@ -172,7 +172,7 @@ def admin():
 
 @app.route('/static/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(os.path.join('static', 'uploads'), filename)
+    return send_from_directory(UPLOAD_FOLDER, filename)
 
 @app.route('/static/<path:filename>')
 def static_files(filename):
