@@ -39,12 +39,11 @@
 
 /* Дополнительные настройки для телефонов*/
 @media (max-width: 992px) {
-    .promo-banner .order-1 { /* Текстовый блок */
-        margin-top: 0.5rem !important;
-        padding-top: 0 !important;
+    .mobile-text-padding {
+        padding-top: 0.5rem !important; /* Минимальный отступ сверху */
     }
-    .promo-banner .order-2 { /* Блок с изображением */
-        margin-top: 2rem !important;
+    .mobile-image-margin {
+        margin-top: 2.5rem !important; /* Большой отступ перед изображением */
     }
     .display-4 {
         font-size: 2.5rem;
