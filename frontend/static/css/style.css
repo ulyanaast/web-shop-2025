@@ -132,22 +132,6 @@ body {
     font-size: 1.1rem;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-    .promo-container {
-        flex-direction: column;
-    }
-    
-    .promo-image, .promo-text {
-        flex: none;
-        width: 100%;
-    }
-    
-    .promo-text {
-        text-align: center;
-    }
-}
-
 /* Товары */
 .products-section h2 {
     font-size: 2.5rem;
@@ -263,4 +247,117 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Адаптивность */
+/* Добавьте или обновите эти медиа-запросы в конце вашего style.css */
+
+@media (max-width: 768px) {
+    /* Общие стили для мобильных */
+    body {
+        font-size: 14px;
+    }
+
+    /* Шапка */
+    .header-container {
+        padding: 0 15px;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .nav-icon img {
+        width: 25px;
+        height: 25px;
+    }
+
+    /* Промо-блок */
+    .promo-banner {
+        padding: 20px 0;
+    }
+
+    .promo-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .promo-image {
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .promo-image img {
+        max-width: 90%;
+        height: auto;
+    }
+
+    .promo-text {
+        padding: 0 15px;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .promo-text h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .promo-text p {
+        font-size: 1rem;
+    }
+
+    /* Товары */
+    .products-section h2 {
+        font-size: 1.8rem;
+        margin: 30px auto 15px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 0 10px;
+    }
+
+    .product-card {
+        width: 100%;
+        max-width: none;
+        margin-bottom: 10px;
+    }
+
+    .product-image {
+        height: 180px;
+        padding: 5px;
+    }
+
+    /* Корзина */
+    .cart-section {
+        margin-top: 30px;
+        padding: 15px;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .remove-btn {
+        margin-top: 5px;
+        align-self: flex-end;
+    }
+}
+
+/* Дополнительные стили для очень маленьких экранов */
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .promo-text h1 {
+        font-size: 1.5rem;
+    }
+
+    .product-image {
+        height: 150px;
+    }
 }
