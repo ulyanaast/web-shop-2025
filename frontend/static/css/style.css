@@ -41,6 +41,7 @@
 @media (max-width: 992px) {
     .promo-banner .order-2 { /* Блок с изображением */
         margin-top: 3rem !important;
+        margin-bottom: 3rem !important;
     }
     
     .promo-banner .order-1 { /* Текстовый блок */
