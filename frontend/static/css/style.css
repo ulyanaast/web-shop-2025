@@ -282,6 +282,7 @@ body {
 
     .promo-image {
         margin-left: 0;
+        margin: 10px 0 10px 0;
         justify-content: center;
     }
 
