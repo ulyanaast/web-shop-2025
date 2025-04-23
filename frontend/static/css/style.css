@@ -1,79 +1,73 @@
 :root {
-    --bs-dark: #800020; /* Основной бордовый цвет */
-    --bs-dark-rgb: 128, 0, 32;
+  --bs-dark: #800020;
+  --bs-dark-rgb: 128, 0, 32;
 }
 
-/* Шрифт Yeseva One для заголовков */
+/* Основные стили */
 .font-yeseva {
-    font-family: 'Yeseva One', serif;
-    font-weight: normal;
+  font-family: 'Yeseva One', serif;
+  font-weight: normal;
 }
 
-/* Кастомизация Bootstrap-компонентов */
-.bg-dark {
-    background-color: var(--bs-dark) !important;
-}
-
-.promo-text p {
-    margin-bottom: 1.5rem !important;
-    line-height: 1.6;
-}
-
-/* Анимация карточек товаров */
-.product-card {
-    transition: transform 0.3s;
-}
-.product-card:hover {
-    transform: translateY(-5px);
-}
-
-/* Кастомизация кнопок */
-.btn-dark {
-    background-color: var(--bs-dark);
-    border-color: var(--bs-dark);
-}
-.btn-dark:hover {
-    background-color: #600018;
-    border-color: #600018;
-}
-
-.promo-banner {
-  background-color: #800020 !important;
+.bg-dark, .promo-banner {
+  background-color: var(--bs-dark) !important;
   color: white;
-  padding: 40px 0;
 }
 
-/* Дополнительные настройки для телефонов*/
-@media (max-width: 992px) {
-    .promo-banner .order-2 { /* Блок с изображением */
-        margin-top: 3rem !important;
-        margin-bottom: 3rem !important;
-    }
-    .promo-banner .order-1 { /* Текстовый блок */
-        padding-top: 1.5rem !important;
-        margin-top: 0 !important;
-    }
-  .promo-banner img {
-    max-height: 300px !important;
-    width: auto !important;
-    margin: 2rem auto 3rem !important; /* Отступы: сверху 2rem, снизу 3rem */
-  }
-    .display-4 {
-        font-size: 2.5rem;
-    }
+/* Промо-блок - общие стили */
+.promo-banner {
+  padding: 60px 0;
+  overflow: hidden;
 }
 
-/* Для изображений товаров */
-.object-fit-contain {
-    object-fit: contain;
-}
-/* Для компьютеров */
+/* Десктопная версия (≥992px) */
 @media (min-width: 992px) {
-  .promo-banner img {
-    max-height: 400px !important; /* Фиксированная высота */
+  .promo-banner {
+    padding: 80px 0;
+  }
+  
+  .promo-image {
+    height: 400px !important;
     width: auto !important;
     max-width: 100% !important;
+    object-fit: contain;
     display: block !important;
     margin: 0 auto !important;
+  }
+  
+  .promo-banner p {
+    font-size: 2rem !important;
+    line-height: 1.6;
+  }
+  
+  .promo-banner .text-lg-end {
+    padding-left: 3rem !important;
+  }
+}
+
+/* Мобильная версия (<992px) */
+@media (max-width: 991.98px) {
+  .promo-banner {
+    padding: 40px 0;
+  }
+  
+  .promo-image {
+    max-height: 300px !important;
+    width: auto !important;
+    margin: 3rem auto 40px !important;
+  }
+  
+  .promo-banner h1 {
+    padding-left: 1.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .promo-banner p {
+    font-size: 1.1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .order-1 {
+    margin-bottom: 1rem !important;
   }
 }
