@@ -33,15 +33,17 @@
     object-fit: contain;
     display: block !important;
     margin: 0 auto !important;
+    border-radius: 12px !important;
   }
   
   .promo-banner p {
-    font-size: 2rem !important;
+    font-size: 1.25rem !important;
     line-height: 1.6;
+    text-align: left !important;
   }
   
-  .promo-banner .text-lg-end {
-    padding-left: 3rem !important;
+  .promo-banner h1 {
+    text-align: left !important;
   }
 }
 
@@ -55,16 +57,19 @@
     max-height: 300px !important;
     width: auto !important;
     margin: 3rem auto 40px !important;
+    border-radius: 12px !important;
   }
   
   .promo-banner h1 {
     padding-left: 1.5rem !important;
     margin-bottom: 2rem !important;
+    text-align: left !important;
   }
   
   .promo-banner p {
     font-size: 1.1rem !important;
     margin-bottom: 1.5rem !important;
+    text-align: left !important;
   }
   
   .order-1 {
