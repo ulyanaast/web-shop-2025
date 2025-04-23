@@ -63,9 +63,8 @@
 }
 /* Для компьютеров */
 @media (min-width: 992px) {
-    .promo-image img {
-        max-height: 400px; /* Жёсткое ограничение по высоте */
+    .promo-image {
+        max-height: 400px;
         width: auto;
-        max-width: 100%;
     }
 }
