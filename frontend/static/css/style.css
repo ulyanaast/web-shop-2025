@@ -37,21 +37,27 @@
     border-color: #600018;
 }
 
+.promo-banner {
+  background-color: #800020 !important;
+  color: white;
+  padding: 40px 0;
+}
+
 /* Дополнительные настройки для телефонов*/
 @media (max-width: 992px) {
     .promo-banner .order-2 { /* Блок с изображением */
         margin-top: 3rem !important;
         margin-bottom: 3rem !important;
     }
-    
     .promo-banner .order-1 { /* Текстовый блок */
         padding-top: 1.5rem !important;
         margin-top: 0 !important;
     }
-    
-    .promo-banner img {
-        max-height: 300px !important;
-    }
+  .promo-banner img {
+    max-height: 300px !important;
+    width: auto !important;
+    margin: 2rem auto 3rem !important; /* Отступы: сверху 2rem, снизу 3rem */
+  }
     .display-4 {
         font-size: 2.5rem;
     }
@@ -63,8 +69,11 @@
 }
 /* Для компьютеров */
 @media (min-width: 992px) {
-    .promo-image {
-        max-height: 400px !important;
-        width: auto;
-    }
+  .promo-banner img {
+    max-height: 400px !important; /* Фиксированная высота */
+    width: auto !important;
+    max-width: 100% !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
 }
