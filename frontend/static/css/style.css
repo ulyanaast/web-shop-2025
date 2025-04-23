@@ -1,20 +1,20 @@
 :root {
-    --bs-dark: #800020; /* Переопределяем цвет Bootstrap */
+    --bs-dark: #800020; /* Основной бордовый цвет */
     --bs-dark-rgb: 128, 0, 32;
 }
 
-/* Шрифт Yeseva One */
+/* Шрифт Yeseva One для заголовков */
 .font-yeseva {
     font-family: 'Yeseva One', serif;
     font-weight: normal;
 }
 
-/* Кастомизация промо-блока */
+/* Кастомизация Bootstrap-компонентов */
 .bg-dark {
     background-color: var(--bs-dark) !important;
 }
 
-/* Адаптация карточек товаров */
+/* Анимация карточек товаров */
 .product-card {
     transition: transform 0.3s;
 }
@@ -32,9 +32,14 @@
     border-color: #600018;
 }
 
-/* Мобильная адаптация */
+/* Дополнительные адаптивные настройки */
 @media (max-width: 768px) {
     .display-4 {
-        font-size: 2.5rem;
+        font-size: 2.5rem; /* Уменьшаем заголовок на мобильных */
     }
+}
+
+/* Для изображений товаров */
+.object-fit-contain {
+    object-fit: contain;
 }
