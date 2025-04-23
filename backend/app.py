@@ -167,8 +167,12 @@ def home():
     return send_from_directory('../frontend', 'index.html')
 
 @app.route('/admin')
-def admin():
+def admin_panel():
     return send_from_directory('../frontend/templates', 'admin.html')
+
+@app.route('/admin-static/<path:filename>')
+def admin_static(filename):
+    return send_from_directory('../frontend/static', filename)
 
 @app.route('/static/uploads/<filename>')
 def uploaded_file(filename):
