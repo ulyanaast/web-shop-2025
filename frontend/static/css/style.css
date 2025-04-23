@@ -297,12 +297,13 @@ body {
     }
 
     .promo-text h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
         margin-bottom: 10px;
     }
 
     .promo-text p {
         font-size: 1rem;
+        line-height: 1.2;
     }
 
     /* Товары */
