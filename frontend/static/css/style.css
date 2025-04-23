@@ -258,7 +258,10 @@ body {
 
     /* Шапка */
 
-
+    .header-container {
+        padding: 0 15px;
+    }
+    
     .logo img {
         height: 40px;
     }
@@ -288,6 +291,8 @@ body {
         padding: 0 15px;
         margin-left: 0;
         text-align: center;
+        padding-bottom: 0;
+        margin-bottom: 0;
     }
 
     .promo-text h1 {
