@@ -21,20 +21,22 @@ async function loadProducts() {
         const container = document.getElementById('products-list');
         
         container.innerHTML = products.map(product => `
-            <div class="product-card">
-                ${product.image ? 
-                    `<img src="${product.image}" class="product-image" alt="${product.name}">` : 
-                    '<div class="product-image" style="background: #eee;"></div>'
-                }
-                <div class="product-info">
-                    <h3>${product.name}</h3>
-                    <p>${product.price} руб.</p>
-                    <button class="btn btn-accent buy-btn" 
-                        data-id="${product.id}"
-                        data-name="${product.name}"
-                        data-price="${product.price}">
-                        Купить
-                    </button>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card product-card h-100">
+                    ${product.image ? 
+                        `<img src="${product.image}" class="card-img-top p-3 bg-light object-fit-contain" alt="${product.name}" style="height: 250px">` : 
+                        '<div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px">Нет изображения</div>'
+                    }
+                    <div class="card-body text-center d-flex flex-column">
+                        <h3 class="card-title">${product.name}</h3>
+                        <p class="card-text">${product.price} руб.</p>
+                        <button class="btn btn-dark mt-auto buy-btn"
+                            data-id="${product.id}"
+                            data-name="${product.name}"
+                            data-price="${product.price}">
+                            Купить
+                        </button>
+                    </div>
                 </div>
             </div>
         `).join('');
@@ -74,9 +76,9 @@ function updateCart() {
     // Обновление UI
     const cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = cart.map((item, index) => `
-        <li class="cart-item">
+        <li class="cart-item d-flex justify-content-between align-items-center p-2 mb-2 bg-white rounded">
             <span>${item.name} - ${item.price} руб.</span>
-            <button class="remove-btn" data-index="${index}">×</button>
+            <button class="btn btn-danger btn-sm rounded-circle remove-btn" data-index="${index}">×</button>
         </li>
     `).join('');
 
