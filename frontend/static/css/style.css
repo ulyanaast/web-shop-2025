@@ -64,7 +64,7 @@
 /* Для компьютеров */
 @media (min-width: 992px) {
     .promo-image {
-        max-height: 400px;
+        max-height: 400px !important;
         width: auto;
     }
 }
