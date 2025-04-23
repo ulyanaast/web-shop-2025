@@ -43,3 +43,11 @@
 .object-fit-contain {
     object-fit: contain;
 }
+/* Для компьютеров (экраны шире 768px) */
+@media (min-width: 768px) {
+    .promo-image img {
+        max-width: 350px;
+        height: auto;
+        margin: 0 auto;
+    }
+}
