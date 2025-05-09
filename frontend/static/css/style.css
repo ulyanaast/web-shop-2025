@@ -7,11 +7,6 @@
     --light-bg: #f9f9f9;
 }
 
-header .nav-icon .badge {
-    background-color: var(--accent-color) !important;
-    color: white;
-}
-
 body {
     padding-bottom: 30px;
 }
