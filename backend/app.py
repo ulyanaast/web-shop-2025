@@ -6,13 +6,25 @@ from datetime import datetime
 import pytz
 from flask_cors import CORS
 
-app = Flask(__name__, static_folder='../frontend/static')
-CORS(app)  # Упрощённая настройка
+app = Flask(__name__, static_folder='static')
+
+# Настройки CORS для GitHub Pages
+CORS(app, 
+     resources={
+         r"/api/*": {
+             "origins": ["https://ulyanaast.github.io"],
+             "methods": ["GET", "POST", "OPTIONS"],
+             "allow_headers": ["Content-Type"],
+             "supports_credentials": True,
+             "expose_headers": ["Content-Type"]
+         }
+     }
+)
 
 # Конфигурация
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, '../frontend/static/uploads')
-DB_PATH = os.path.join(BASE_DIR, 'orders.db')
+DB_PATH = 'orders.db'
 BASE_STATIC_URL = 'https://ast-backend-rw3h.onrender.com/static/uploads/'
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -52,10 +64,10 @@ def get_products():
     cursor.execute('''
         SELECT id, name, price, 
                CASE WHEN image_path IS NOT NULL 
-               THEN f'{BASE_STATIC_URL}' || SUBSTR(image_path, 8) 
+               THEN ? || SUBSTR(image_path, 8) 
                ELSE NULL END as image 
         FROM products
-    ''')
+    ''', (BASE_STATIC_URL,))
     products = cursor.fetchall()
     conn.close()
     return jsonify([{
@@ -84,7 +96,7 @@ def save_order():
     conn.close()
     return jsonify({"success": True})
 
-# API для админки
+# API для админки (без изменений)
 @app.route('/api/admin/available-images')
 def get_available_images():
     images = []
@@ -115,11 +127,8 @@ def admin_add_product():
         image_filename = request.form.get('image_filename')
         
         image_path = None
-        if image_filename:
-            if os.path.exists(os.path.join(UPLOAD_FOLDER, image_filename)):
-                image_path = f"uploads/{image_filename}"
-            else:
-                return jsonify({"error": "Файл изображения не найден"}), 400
+        if image_filename and os.path.exists(os.path.join(UPLOAD_FOLDER, image_filename)):
+            image_path = f"uploads/{image_filename}"
         
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
@@ -145,7 +154,7 @@ def admin_delete_product(id):
     finally:
         conn.close()
 
-# Статические файлы
+# Статические файлы (исправленные пути)
 @app.route('/')
 def home():
     return send_from_directory('../frontend', 'index.html')
@@ -158,10 +167,6 @@ def admin_panel():
 def cart_page():
     return send_from_directory('../frontend/templates', 'cart.html')
 
-@app.route('/index.html')
-def index_html():
-    return send_from_directory('../frontend', 'index.html')
-
 @app.route('/static/<path:filename>')
 def static_files(filename):
     return send_from_directory('../frontend/static', filename)
@@ -169,6 +174,21 @@ def static_files(filename):
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory('../frontend/static', 'favicon.ico')
+
+# Дополнительный роут
+@app.route('/api/admin/orders')
+def get_orders():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM orders ORDER BY id DESC')
+    orders = cursor.fetchall()
+    conn.close()
+    return jsonify([{
+        "id": o[0],
+        "product_name": o[1],
+        "price": o[2],
+        "order_date": o[3]
+    } for o in orders])
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
