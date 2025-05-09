@@ -15,23 +15,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up deployment structure
+      - name: Set up deployment
         run: |
-          # Создаём правильную структуру папок
-          mkdir -p public/static/uploads
-          mkdir -p public/static/css
-          mkdir -p public/static/js
-          
-          # Копируем все файлы из frontend в public
+          # Создаем структуру как ожидает GitHub Pages
+          mkdir -p public
           cp -r frontend/* public/
           
-          # Копируем статику с сохранением структуры
-          cp -r frontend/static/* public/static/
+          # Проверяем наличие критичных файлов
+          ls -la public/static/css/
+          ls -la public/static/uploads/
           
-          # Копируем фавикон в корень отдельно
-          cp frontend/static/favicon.ico public/ || true
-          
-          # Проверяем структуру (для отладки)
+          # Для отладки
           tree public -L 3
 
       - uses: actions/upload-pages-artifact@v3
