@@ -1,6 +1,14 @@
 :root {
-  --bs-dark: #800020;
-  --bs-dark-rgb: 128, 0, 32;
+    --accent-color: #800020;
+    --accent-hover: #600018;
+    --text-on-light: #1d1d1d;
+    --text-on-dark: white;
+    --border-color: #ddd;
+    --light-bg: #f9f9f9;
+}
+
+body {
+    padding-bottom: 30px;
 }
 
 /* Основные стили */
@@ -10,7 +18,7 @@
 }
 
 .bg-dark, .promo-banner {
-  background-color: var(--bs-dark) !important;
+  background-color: var(--accent-color) !important;
   color: white;
 }
 
@@ -22,24 +30,24 @@
 
 /* Кастомизация кнопок */
 .btn-dark {
-  background-color: var(--bs-dark) !important;
-  border-color: var(--bs-dark) !important;
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
 }
 
 .btn-dark:hover {
-  background-color: #600018 !important;
-  border-color: #600018 !important;
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
 }
 
 /* Для кнопки оформления заказа */
 #checkout-btn {
-  background-color: var(--bs-dark) !important;
-  border-color: var(--bs-dark) !important;
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
 }
 
 #checkout-btn:hover {
-  background-color: #600018 !important;
-  border-color: #600018 !important;
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
 }
 
 /* Десктопная версия (≥992px) */
