@@ -6,8 +6,8 @@
     <title>Аст</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="static/css/style.css">
-    <link rel="icon" href="static/favicon.ico">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -16,17 +16,17 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <img src="static/uploads/logo_red.png" alt="Логотип" height="50">
+                    <img src="/static/uploads/logo_red.png" alt="Логотип" height="50">
                 </div>
                 <nav class="d-flex gap-3">
                     <a href="#" class="nav-icon position-relative">
-                        <img src="static/uploads/catalog_ic.png" alt="Товары" width="30">
+                        <img src="/static/uploads/catalog_ic.png" alt="Товары" width="30">
                     </a>
                     <a href="#" class="nav-icon position-relative">
-                        <img src="static/uploads/orders_ic.png" alt="Заказы" width="30">
+                        <img src="/static/uploads/orders_ic.png" alt="Заказы" width="30">
                     </a>
-                    <a href="#" class="nav-icon position-relative">
-                        <img src="static/uploads/cart_ic.png" alt="Корзина" width="30">
+                    <a href="/cart" class="nav-icon position-relative" title="Корзина">
+                        <img src="/static/uploads/cart_ic.png" alt="Корзина" width="30">
                         <span id="header-cart-count" class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-pill">0</span>
                     </a>
                 </nav>
@@ -36,22 +36,22 @@
 
     <!-- Промо-блок -->
     <section class="promo-banner">
-      <div class="container">
-        <div class="row align-items-center">
-          <!-- Текст -->
-          <div class="col-lg-6 order-lg-2 order-1">
-            <h1 class="font-yeseva display-4 mb-4">Простота — ключ к истинной элегантности.</h1>
-            <p class="mb-3 fs-5">Добро пожаловать в мир <strong>Ульяны Аст</strong> — бренда, который несёт в себе современную классику, элегантность и премиальное качество.</p>
-            <p class="mb-3 fs-5">Наша коллекция выполнена исключительно в чёрном и бордовом оттенках. Всё сочетается между собой.</p>
-            <p class="mb-0 fs-5">Стиль. Неумолимость. Уверенность. Безвременье. Женственность.</p>
-          </div>
-          
-          <!-- Изображение -->
-          <div class="col-lg-6 order-lg-1 order-2 text-center">
-            <img src="static/uploads/two.png" alt="О бренде" class="promo-image rounded">
-          </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Текст -->
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <h1 class="font-yeseva display-4 mb-4">Простота — ключ к истинной элегантности.</h1>
+                    <p class="mb-3 fs-5">Добро пожаловать в мир <strong>Ульяны Аст</strong> — бренда, который несёт в себе современную классику, элегантность и премиальное качество.</p>
+                    <p class="mb-3 fs-5">Наша коллекция выполнена исключительно в чёрном и бордовом оттенках. Всё сочетается между собой.</p>
+                    <p class="mb-0 fs-5">Стиль. Неумолимость. Уверенность. Безвременье. Женственность.</p>
+                </div>
+                
+                <!-- Изображение -->
+                <div class="col-lg-6 order-lg-1 order-2 text-center">
+                    <img src="/static/uploads/two.png" alt="О бренде" class="promo-image rounded">
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
     <main class="container my-5">
@@ -61,7 +61,7 @@
             <div id="products-list" class="row g-4"></div>
         </section>
 
-        <!-- Корзина -->
+        <!-- Корзина (опционально) -->
         <section id="cart" class="mt-5 p-4 bg-light rounded">
             <h2 class="font-yeseva mb-3">Корзина (<span id="cart-count">0</span>)</h2>
             <ul id="cart-items" class="list-unstyled"></ul>
@@ -72,7 +72,6 @@
 
     <!-- Bootstrap JS + Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="static/js/script.js"></script>
+    <script src="/static/js/script.js"></script>
 </body>
 </html>
