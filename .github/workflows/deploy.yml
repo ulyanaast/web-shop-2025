@@ -17,20 +17,26 @@ jobs:
 
       - name: Set up deployment structure
         run: |
-          # Правильная структуру\а
-          mkdir -p public
+          # Создаём правильную структуру папок
+          mkdir -p public/static/uploads
+          mkdir -p public/static/css
+          mkdir -p public/static/js
+          
+          # Копируем все файлы из frontend в public
           cp -r frontend/* public/
           
           # Копируем статику с сохранением структуры
-          mkdir -p public/static
           cp -r frontend/static/* public/static/
-                
-          # Проверяем структуру для отладки
-          ls -R public
+          
+          # Копируем фавикон в корень отдельно
+          cp frontend/static/favicon.ico public/ || true
+          
+          # Проверяем структуру (для отладки)
+          tree public -L 3
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: 'public'  # Указываем папку public как корень для Pages
+          path: 'public'
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
