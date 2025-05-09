@@ -15,23 +15,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Copy files to root
+      - name: Set up deployment structure
         run: |
-          # Копируем всё содержимое frontend в корень
-          cp -r frontend/* .
+          # Правильная структуру\а
+          mkdir -p public
+          cp -r frontend/* public/
           
-          # Копируем отдельно папку static (мне нужно сохранить структуру)
-          cp -r frontend/static .
-          
-          # Копируем скрытые файлы (если есть)
-          cp -r frontend/.[^.]* . || true
-          
-          # Проверяем что скопировалось (для отладки)
-          ls -R
+          # Копируем статику с сохранением структуры
+          mkdir -p public/static
+          cp -r frontend/static/* public/static/
+                
+          # Проверяем структуру для отладки
+          ls -R public
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: 'public'  # Указываем папку public как корень для Pages
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
