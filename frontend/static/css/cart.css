@@ -1,0 +1,185 @@
+/* Шапка на странице корзины */
+header .nav-icon .badge {
+    background-color: #800020 !important;
+    color: white;
+}
+
+/* Общие стили корзины */
+#cart {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+#cart h1 {
+    background-color: var(--accent-color);
+    color: white;
+    font-family: 'Yeseva One', serif;
+    font-weight: normal;
+    padding: 1rem;
+    margin: -2rem -2rem 1.5rem -2rem;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Элементы корзины */
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.cart-content-wrapper {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    gap: 30px;
+}
+
+.cart-item-thumbnail {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+/* Блок с названием и ценой */
+.product-text-container {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    min-width: 0;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.product-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.price {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.price::before {
+    content: "—";
+    margin: 0 5px;
+}
+
+/* Кнопка удаления */
+.remove-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+
+/* Футер корзины */
+.cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.cart-total {
+    font-family: 'Yeseva One', serif;
+    font-size: 1.5rem;
+    color: var(--text-on-light);
+    margin: 0;
+}
+
+#checkout-btn {
+    font-family: 'Yeseva One', serif;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    background-color: var(--accent-color);
+    border: none;
+    color: white;
+}
+
+/* Мобильная версия */
+@media (max-width: 767.98px) {
+    .cart-item {
+        flex-wrap: nowrap;
+        padding-right: 15px;
+    }
+    
+    .cart-item-thumbnail {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .product-text-container {
+        flex-wrap: wrap;
+    }
+    
+    .product-name {
+        white-space: normal;
+        overflow: visible;
+        line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+    
+    .price::before {
+        content: "—";
+        margin: 0 5px;
+    }
+    .price {
+        white-space: nowrap;
+    }
+    
+    .remove-btn {
+        position: static;
+        transform: none;
+        margin-left: auto;
+    }
+
+    .cart-item {
+        flex-wrap: nowrap;
+        padding-right: 15px;
+    }
+}
+
+/* Анимация уведомлений */
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.alert-success {
+    animation: slideInUp 0.3s ease forwards;
+}
