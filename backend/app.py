@@ -6,24 +6,14 @@ from datetime import datetime
 import pytz
 from flask_cors import CORS
 
-app = Flask(__name__, static_folder='static')
-
-CORS(app, 
-     resources={
-         r"/api/*": {
-             "origins": ["https://ulyanaast.github.io"],
-             "methods": ["GET", "POST", "OPTIONS"],
-             "allow_headers": ["Content-Type"],
-             "supports_credentials": True,
-             "expose_headers": ["Content-Type"]
-         }
-     }
-)
+app = Flask(__name__, static_folder='../frontend/static')
+CORS(app)  # Упрощённая настройка
 
 # Конфигурация
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, '../frontend/static/uploads')
-DB_PATH = 'orders.db'
+DB_PATH = os.path.join(BASE_DIR, 'orders.db')
+BASE_STATIC_URL = 'https://ast-backend-rw3h.onrender.com/static/uploads/'
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -62,7 +52,7 @@ def get_products():
     cursor.execute('''
         SELECT id, name, price, 
                CASE WHEN image_path IS NOT NULL 
-               THEN 'https://ast-backend-rw3h.onrender.com/static/uploads/' || REPLACE(image_path, 'uploads/', '')
+               THEN f'{BASE_STATIC_URL}' || SUBSTR(image_path, 8) 
                ELSE NULL END as image 
         FROM products
     ''')
@@ -122,11 +112,10 @@ def admin_add_product():
     try:
         name = request.form['name']
         price = float(request.form['price'])
-        image_filename = request.form.get('image_filename')  # Получаем имя файла из формы
+        image_filename = request.form.get('image_filename')
         
         image_path = None
         if image_filename:
-            # Проверяем, что файл действительно существует
             if os.path.exists(os.path.join(UPLOAD_FOLDER, image_filename)):
                 image_path = f"uploads/{image_filename}"
             else:
@@ -148,11 +137,6 @@ def admin_delete_product(id):
     try:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
-        
-        # Получаем информацию о товаре перед удалением (для отладки)
-        cursor.execute('SELECT * FROM products WHERE id = ?', (id,))
-        product = cursor.fetchone()
-        
         cursor.execute('DELETE FROM products WHERE id = ?', (id,))
         conn.commit()
         return jsonify({"success": True})
@@ -170,43 +154,21 @@ def home():
 def admin_panel():
     return send_from_directory('../frontend/templates', 'admin.html')
 
-@app.route('/admin-static/<path:filename>')
-def admin_static(filename):
-    return send_from_directory('../frontend/static', filename)
+@app.route('/cart')
+def cart_page():
+    return send_from_directory('../frontend/templates', 'cart.html')
 
-@app.route('/static/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename)
+@app.route('/index.html')
+def index_html():
+    return send_from_directory('../frontend', 'index.html')
 
 @app.route('/static/<path:filename>')
 def static_files(filename):
-    return send_from_directory('static', filename)
+    return send_from_directory('../frontend/static', filename)
 
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory('../frontend/static', 'favicon.ico')
-
-@app.route('/api/admin/orders')
-def get_orders():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM orders ORDER BY id DESC')
-    orders = cursor.fetchall()
-    conn.close()
-    return jsonify([{
-        "id": o[0],
-        "product_name": o[1],
-        "price": o[2],
-        "order_date": o[3]
-    } for o in orders])
-
-@app.after_request
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = 'https://ulyanaast.github.io'
-    response.headers['Access-Control-Allow-Credentials'] = 'true'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    return response
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
