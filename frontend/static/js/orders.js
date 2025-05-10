@@ -13,14 +13,17 @@ const getDeviceId = () => {
 const updateOrdersUI = async () => {
   try {
     const deviceId = getDeviceId();
+    console.log("Device ID:", deviceId);
     const response = await fetch(`${API_BASE_URL}/api/admin/orders`, {
         headers: {
             'X-Device-ID': deviceId
-        }
+            'Content-Type': 'application/json'
+      },
+      credentials: 'include' // Важно для CORS
     });
 
     if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        Error(`HTTP ${response.status}`);
     }
 
     const orders = await response.json();
