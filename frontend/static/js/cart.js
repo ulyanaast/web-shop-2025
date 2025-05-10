@@ -2,11 +2,30 @@
 const BASE_URL = 'https://ast-backend-rw3h.onrender.com';
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-// Простая функция добавления в корзину
+// Функция добавления в корзину
 function addToCart(product) {
     // Сохраняем оригинальные данные без изменений
     cart.push(product);
     updateCart();
+}
+
+async function validateCart() {
+    try {
+        const response = await fetch('https://ast-backend-rw3h.onrender.com/api/products');
+        const products = await response.json();
+        const validIds = new Set(products.map(p => p.id));
+        
+        const removedItems = cart.filter(item => !validIds.has(item.id));
+        cart = cart.filter(item => validIds.has(item.id));
+        
+        if (removedItems.length > 0) {
+            alert(`Некоторые товары (${removedItems.length}) больше недоступны и удалены из корзины.`);
+        }
+        
+        updateCart();
+    } catch (error) {
+        console.error("Ошибка валидации корзины:", error);
+    }
 }
 
 // Обновление отображения корзины
@@ -98,6 +117,7 @@ function setupCheckout() {
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
+    await validateCart();
     updateCart();
     setupCheckout();
 });
