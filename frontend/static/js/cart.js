@@ -128,6 +128,11 @@ function setupCheckout() {
 }
 
 // Инициализация
+document.addEventListener('cartNeedsUpdate', (e) => {
+    cart.push(e.detail);
+    updateCart();
+    showNotification(e.detail.name);
+});
 document.addEventListener('DOMContentLoaded', async () => {
     await validateCart();
     updateCart();
