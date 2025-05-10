@@ -26,6 +26,11 @@ jobs:
           
           # Дублируем cart.html в корень
           cp ../frontend/templates/cart.html .
+
+          - name: Set base path
+            run: |
+              # Генерируем файл конфигурации
+              echo '{ "baseUrl": "/web-shop-2025/" }' > public/config.json
           
           # Проверка (с абсолютными путями)
           echo "=== Проверка структуры ==="
