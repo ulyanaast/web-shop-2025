@@ -193,7 +193,7 @@ def get_orders():
         SELECT o.id, o.product_name, o.price, o.order_date, p.image_path
         FROM orders o
         LEFT JOIN products p ON o.product_name = p.name
-        WHERE o.device_id = ?  # Заказы только текущего устройства по ID
+        WHERE o.device_id = ?
         ORDER BY o.order_date DESC
     ''', (device_id,))
     
