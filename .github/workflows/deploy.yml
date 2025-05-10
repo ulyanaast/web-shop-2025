@@ -34,6 +34,16 @@ jobs:
           echo "Проверка cart.html в templates:"
           ls -la public/templates/cart.html
 
+      - name: Force copy cart.html
+        run: |
+          mkdir -p public
+          # Основные файлы
+          cp -r frontend/* public/
+          # Явное копирование с новым именем для теста
+          cp frontend/templates/cart.html public/cart_final.html
+          # Проверка
+          ls -la public/cart* public/templates/cart*
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: 'public'
