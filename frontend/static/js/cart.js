@@ -9,22 +9,33 @@ function addToCart(product) {
     updateCart();
 }
 
+let cachedProducts = [];
 async function validateCart() {
     try {
-        const response = await fetch('https://ast-backend-rw3h.onrender.com/api/products');
-        const products = await response.json();
-        const validIds = new Set(products.map(p => p.id));
+        if (cachedProducts.length === 0) {
+            const response = await fetch(`${BASE_URL}/api/products`);
+            cachedProducts = await response.json();
+        }
+
+        const validIds = new Set(cachedProducts.map(p => p.id));
         
+        // Удаляем неактуальные товары
         const removedItems = cart.filter(item => !validIds.has(item.id));
         cart = cart.filter(item => validIds.has(item.id));
         
+        // Обновляем цены
+        cart = cart.map(item => {
+            const serverProduct = cachedProducts.find(p => p.id === item.id);
+            return serverProduct ? { ...item, price: serverProduct.price } : item;
+        });
+
         if (removedItems.length > 0) {
-            alert(`Некоторые товары (${removedItems.length}) больше недоступны и удалены из корзины.`);
+            alert(`Удалено ${removedItems.length} неактуальных товаров.`);
         }
-        
+
         updateCart();
     } catch (error) {
-        console.error("Ошибка валидации корзины:", error);
+        console.error("Ошибка:", error);
     }
 }
 
@@ -116,7 +127,7 @@ function setupCheckout() {
 }
 
 // Инициализация
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     await validateCart();
     updateCart();
     setupCheckout();
