@@ -8,9 +8,20 @@ document.addEventListener('cartNeedsUpdate', (e) => {
     cart.push(e.detail);
     updateCart();
     showNotification(e.detail.name);
-    // Принудительное обновление для главной страницы
-    if (window.location.pathname === '/') {
-        document.getElementById('header-cart-count').textContent = cart.length;
+    // Обновляем счётчик во всех возможных местах
+    const updateHeaderCounter = () => {
+        const headerCounter = document.getElementById('header-cart-count');
+        if (headerCounter) headerCounter.textContent = cart.length;
+    };
+    // Вызываем при любом изменении корзины
+    updateHeaderCounter();
+});
+
+// Синхронизация между вкладками
+window.addEventListener('storage', (e) => {
+    if (e.key === 'cart') {
+        cart = JSON.parse(e.newValue || '[]');
+        updateCart();
     }
 });
 
