@@ -2,6 +2,13 @@
 const BASE_URL = 'https://ast-backend-rw3h.onrender.com';
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// Обработчик события добавления в корзину
+document.addEventListener('cartNeedsUpdate', (e) => {
+    cart.push(e.detail);
+    updateCart();
+    showNotification(e.detail.name);
+});
+
 // Функция добавления в корзину
 function addToCart(product) {
     // Сохраняем оригинальные данные без изменений
@@ -142,11 +149,6 @@ function showNotification(productName) {
 }
 
 // Инициализация
-document.addEventListener('cartNeedsUpdate', (e) => {
-    cart.push(e.detail);
-    updateCart();
-    showNotification(e.detail.name);
-});
 document.addEventListener('DOMContentLoaded', async () => {
     await validateCart();
     updateCart();
