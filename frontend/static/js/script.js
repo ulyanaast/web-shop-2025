@@ -5,6 +5,11 @@ window.addToCart = function(product) {
     });
     document.dispatchEvent(event);
 };
+// Глобальная функция для обновления счётчиков
+window.updateCartCounters = function(count) {
+    const headerCounter = document.getElementById('header-cart-count');
+    if (headerCounter) headerCounter.textContent = count;
+};
 
 // DOM элементы (кэшируем для производительности)
 const elements = {
