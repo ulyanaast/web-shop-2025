@@ -1,8 +1,8 @@
-const BASE_URL = 'https://ast-backend-rw3h.onrender.com';
+const API_BASE_URL = window.BASE_URL || 'https://ast-backend-rw3h.onrender.com/web-shop-2025';
 
 const updateOrdersUI = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/api/admin/orders`);
+    const response = await fetch(`${API_BASE_URL}/api/admin/orders`);
     const orders = await response.json();
     
     // Группировка заказов по дате/времени
