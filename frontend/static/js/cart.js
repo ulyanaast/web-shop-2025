@@ -4,6 +4,9 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Главная функция обновления UI
 const updateCartUI = () => {
+  if (window.location.pathname.includes('orders.html')) {
+    localStorage.removeItem('cart');
+  }
   // Сохраняем корзину
   localStorage.setItem('cart', JSON.stringify(cart));
   
@@ -98,6 +101,7 @@ const setupCheckout = () => {
       }
     });
   }
+  localStorage.removeItem('cart'); // Очищаем локальную корзину
 };
 
 // Уведомление
