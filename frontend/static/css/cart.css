@@ -129,20 +129,12 @@ header .nav-icon .badge {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  background: #800020; /* Бордовый для всех уведомлений */
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
   z-index: 1000;
   animation: slideInUp 0.3s ease forwards;
-}
-
-/* Специфичные стили для разных типов уведомлений */
-.removed-notification {
-  background: #800020;
-}
-
-.order-success-notification {
-  background: #4CAF50; /* Зеленый */
 }
 
 /* Мобильная версия */
