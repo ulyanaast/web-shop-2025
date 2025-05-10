@@ -239,13 +239,6 @@ def handle_options():
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type, X-Device-ID')
     return response
 
-@app.route('/api/debug/orders')
-def debug_orders():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute('SELECT id, product_name, device_id FROM orders')
-    return jsonify(cursor.fetchall())
-
 @app.route('/admin-static/<path:filename>')
 def admin_static(filename):
     return send_from_directory('../frontend/static', filename)
