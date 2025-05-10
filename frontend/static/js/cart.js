@@ -4,9 +4,6 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Главная функция обновления UI
 const updateCartUI = () => {
-  if (window.location.pathname.includes('orders.html')) {
-    localStorage.removeItem('cart');
-  }
   // Сохраняем корзину
   localStorage.setItem('cart', JSON.stringify(cart));
   
@@ -93,15 +90,18 @@ const setupCheckout = () => {
         if (!response.ok) throw new Error(await response.text());
         
         cart = [];
+        localStorage.removeItem('cart'); // Очищаем только после успешного оформления
         updateCartUI();
         alert('Заказ оформлен!');
+        
+        // Перенаправляем на страницу заказов
+        window.location.href = '/web-shop-2025/orders.html';
       } catch (error) {
         console.error('Ошибка:', error);
         alert(`Ошибка: ${error.message}`);
       }
     });
   }
-  localStorage.removeItem('cart'); // Очищаем локальную корзину
 };
 
 // Уведомление
