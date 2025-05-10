@@ -178,7 +178,7 @@ def static_files(filename):
 def serve_orders():
     return send_from_directory('../frontend/templates', 'orders.html')
 
-# Дополнительный роут
+# Дополнительные роут
 @app.route('/api/admin/orders')
 def get_orders():
     conn = sqlite3.connect(DB_PATH)
@@ -192,6 +192,31 @@ def get_orders():
         "price": o[2],
         "order_date": o[3]
     } for o in orders])
+
+@app.route('/api/orders')
+def get_grouped_orders():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM orders ORDER BY order_date DESC')
+    orders = cursor.fetchall()
+    conn.close()
+    
+    grouped = {}
+    for o in orders:
+        key = o[3]  # order_date
+        if key not in grouped:
+            grouped[key] = {
+                "date": key,
+                "items": [],
+                "total": 0
+            }
+        grouped[key]["items"].append({
+            "product_name": o[1],
+            "price": o[2]
+        })
+        grouped[key]["total"] += o[2]
+    
+    return jsonify(list(grouped.values()))
 
 @app.route('/admin-static/<path:filename>')
 def admin_static(filename):
