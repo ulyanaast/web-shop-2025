@@ -9,6 +9,7 @@ function addToCart(product) {
     updateCart();
 }
 
+// Обновление товаров в корзине при их внутреннем изменении
 let cachedProducts = [];
 async function validateCart() {
     try {
@@ -96,7 +97,7 @@ function updateCart() {
     });
 }
 
-// Оформление заказа (оставляем без изменений)
+// Оформление заказа
 function setupCheckout() {
     const checkoutBtn = document.getElementById('checkout-btn');
     if (checkoutBtn) {
