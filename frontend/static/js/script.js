@@ -1,21 +1,18 @@
-// Делаю функцию addToCart глобально доступной
+// Глобальный доступ
 window.addToCart = function(product) {
-    // Добавляем товар в корзину сразу
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push(product);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    console.log("Добавляем товар:", product);
     
-    // Отправляем событие
-    const event = new CustomEvent('cartNeedsUpdate', { 
-        detail: product,
+    // Создаём и отправляем событие
+    const event = new CustomEvent('cartNeedsUpdate', {
+        detail: {
+            ...product,
+            id: Number(product.id) // Приводим ID к числу
+        },
         bubbles: true,
         composed: true
     });
-    document.dispatchEvent(event);
     
-    // Принудительно обновляем счётчик
-    const counter = document.getElementById('header-cart-count');
-    if (counter) counter.textContent = cart.length;
+    document.dispatchEvent(event);
 };
 // Глобальная функция для обновления счётчиков
 window.updateCartCounters = function(count) {
