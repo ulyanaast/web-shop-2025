@@ -17,29 +17,16 @@ jobs:
 
       - name: Set up deployment
         run: |
-          # Создаем чистую структуру
           mkdir -p public
-          cd public
+          cp -r frontend/* public/
+          cp frontend/templates/cart.html public/
           
-          # Копируем содержимое frontend
-          cp -r ../frontend/* .
+          # Создаем конфиг с базовым URL
+          echo '{ "baseUrl": "/web-shop-2025/" }' > public/config.json
           
-          # Дублируем cart.html в корень
-          cp ../frontend/templates/cart.html .
-
-          - name: Set base path
-            run: |
-              # Генерируем файл конфигурации
-              echo '{ "baseUrl": "/web-shop-2025/" }' > public/config.json
-          
-          # Проверка (с абсолютными путями)
-          echo "=== Проверка структуры ==="
-          pwd
-          ls -la
-          echo "=== cart.html ==="
-          ls -la cart.html
-          echo "=== templates/ ==="
-          ls -la templates/cart.html
+          # Проверка
+          echo "Содержимое public:"
+          ls -la public/
 
       - uses: actions/upload-pages-artifact@v3
         with:
