@@ -34,7 +34,13 @@ const updateOrdersUI = async () => {
       Object.values(groupedOrders).map(orderGroup => `
         <div class="order-item">
           <div class="order-header">
-            <span class="order-date">${new Date(orderGroup.date).toLocaleString('ru-RU')}</span>
+            <span class="order-date">${new Date(orderGroup.date).toLocaleString('ru-RU', {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}</span>
           </div>
           <div class="order-products">
             ${orderGroup.items.map(item => `
