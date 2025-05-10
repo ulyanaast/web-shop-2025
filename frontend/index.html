@@ -70,5 +70,13 @@
     <!-- Основной скрипт -->
     <script src="/web-shop-2025/static/js/script.js"></script>  <!-- Товары -->
     <script src="/web-shop-2025/static/js/cart.js"></script>   <!-- Корзина -->
+    <script>
+    // Инициализация счётчика при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const counter = document.getElementById('header-cart-count');
+        if (counter) counter.textContent = cart.length;
+    });
+</script>
 </body>
 </html>
