@@ -59,7 +59,6 @@ body {
   .promo-image {
     height: 350px !important;
     width: auto !important;
-    max-width: 60% !important;
     object-fit: contain;
     display: block !important;
     margin: 0 auto !important;
