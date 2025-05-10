@@ -55,6 +55,11 @@ body {
   .promo-banner {
     padding: 60px 0;
   }
+
+  /* Увеличение отступа между текстом и изображением */
+    .promo-banner .row.align-items-center {
+        gap: 80px; /* Увеличиваем расстояние */
+    }
   
   .promo-image {
     height: 400px !important;
