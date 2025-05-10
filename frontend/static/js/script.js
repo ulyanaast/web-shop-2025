@@ -1,3 +1,9 @@
+// Делаю функцию addToCart глобально доступной
+window.addToCart = function(product) {
+    const event = new CustomEvent('cartNeedsUpdate', { detail: product });
+    document.dispatchEvent(event);
+};
+
 // Корзина
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
