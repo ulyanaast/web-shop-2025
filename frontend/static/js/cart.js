@@ -5,7 +5,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 // Функция для показа уведомления
 const showRemovedNotification = (removedItems) => {
   const notification = document.createElement('div');
-  notification.className = 'removed-notification';
+  notification.className = 'notification removed-notification';
   notification.innerHTML = `
     <p>${removedItems.length} товар(ов) больше не доступны</p>
   `;
@@ -95,11 +95,24 @@ const setupCheckout = () => {
         
         if (!response.ok) throw new Error(await response.text());
         
+        // Показываем уведомление об успехе
+        const notification = document.createElement('div');
+        notification.className = 'notification order-success-notification';
+        notification.innerHTML = '<p>Заказ успешно оформлен!</p>';
+        document.body.appendChild(notification);
+        
+        // Удаляем уведомление через 3 секунды
+        setTimeout(() => notification.remove(), 3000);
+        
         cart = [];
         localStorage.removeItem('cart');
         updateCartUI();
-        alert('Заказ оформлен!');
-        window.location.href = '/web-shop-2025/orders.html';
+        
+        // Перенаправляем на страницу заказов через 1 секунду
+        setTimeout(() => {
+          window.location.href = '/web-shop-2025/orders.html';
+        }, 1000);
+        
       } catch (error) {
         console.error('Ошибка:', error);
         alert(`Ошибка: ${error.message}`);
