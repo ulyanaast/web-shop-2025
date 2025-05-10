@@ -1,5 +1,5 @@
 // Конфигурация
-const BASE_URL = '/web-shop-2025';
+const BASE_URL = 'https://ast-backend-rw3h.onrender.com';
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Простая функция добавления в корзину
