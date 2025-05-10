@@ -166,6 +166,9 @@ def admin_panel():
 @app.route('/web-shop-2025/cart')
 def serve_cart():
     return send_from_directory('../frontend/templates', 'cart.html')
+@app.route('/web-shop-2025/static/<path:filename>')
+def static_files(filename):
+    return send_from_directory('../frontend/static', filename)
 
 @app.route('/static/<path:filename>')
 def static_files(filename):
