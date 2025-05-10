@@ -1,9 +1,21 @@
 // Делаю функцию addToCart глобально доступной
 window.addToCart = function(product) {
+    // Добавляем товар в корзину сразу
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Отправляем событие
     const event = new CustomEvent('cartNeedsUpdate', { 
-        detail: product 
+        detail: product,
+        bubbles: true,
+        composed: true
     });
     document.dispatchEvent(event);
+    
+    // Принудительно обновляем счётчик
+    const counter = document.getElementById('header-cart-count');
+    if (counter) counter.textContent = cart.length;
 };
 // Глобальная функция для обновления счётчиков
 window.updateCartCounters = function(count) {
