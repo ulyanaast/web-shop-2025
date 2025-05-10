@@ -57,7 +57,7 @@ body {
   }
   
   .promo-image {
-    height: 300px !important;
+    height: 400px !important;
     width: auto !important;
     object-fit: contain;
     display: block !important;
