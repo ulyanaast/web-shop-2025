@@ -17,17 +17,16 @@ jobs:
 
       - name: Set up deployment
         run: |
-          # Создаем структуру для GitHub Pages
           mkdir -p public
-          
-          # Копируем основной контент
           cp -r frontend/* public/
           
           # Копируем в корень public
-          cp frontend/templates/cart.html public/
-          cp frontend/templates/admin.html public/
+          mkdir -p public/templates
+          cp frontend/templates/cart.html public/templates/
+          cp frontend/templates/admin.html public/templates/
+
+          ln -s templates/cart.html public/cart.html
           
-          # Проверяем наличие критичных файлов
           echo "Проверка файлов:"
           ls -la public/cart.html
           ls -la public/static/js/
