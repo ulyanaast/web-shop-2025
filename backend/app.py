@@ -165,7 +165,10 @@ def admin_panel():
 
 @app.route('/cart')
 def serve_cart():
-    return send_from_directory('../frontend/templates', 'cart.html')
+    if request.host == 'ulyanaast.github.io':
+        return redirect('https://ulyanaast.github.io/cart.html')
+    else:
+        return send_from_directory('../frontend/templates', 'cart.html')
 
 @app.route('/static/<path:filename>')
 def static_files(filename):
