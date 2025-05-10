@@ -13,7 +13,7 @@ CORS(app,
      resources={
          r"/api/*": {
              "origins": ["https://ulyanaast.github.io"],
-             "methods": ["GET", "POST", "OPTIONS"],
+             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
              "allow_headers": ["Content-Type"],
              "supports_credentials": True,
              "expose_headers": ["Content-Type"]
