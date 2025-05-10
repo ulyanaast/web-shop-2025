@@ -5,7 +5,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 // Функция для показа уведомления
 const showRemovedNotification = (removedItems) => {
   const notification = document.createElement('div');
-  notification.className = 'notification removed-notification';
+  notification.className = 'notification';
   notification.innerHTML = `
     <p>${removedItems.length} товар(ов) больше не доступны</p>
   `;
@@ -97,7 +97,7 @@ const setupCheckout = () => {
         
         // Показываем уведомление об успехе
         const notification = document.createElement('div');
-        notification.className = 'notification order-success-notification';
+        notification.className = 'notification';
         notification.innerHTML = '<p>Заказ успешно оформлен!</p>';
         document.body.appendChild(notification);
         
