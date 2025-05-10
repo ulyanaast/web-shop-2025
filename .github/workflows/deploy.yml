@@ -17,22 +17,24 @@ jobs:
 
       - name: Set up deployment
         run: |
-          # Создаем структуру
+          # Создаем чистую структуру
           mkdir -p public
+          cd public
           
-          # Копируем ВСЁ из frontend
-          cp -r frontend/* public/
+          # Копируем содержимое frontend
+          cp -r ../frontend/* .
           
-          # Явно копируем cart.html
-          cp frontend/templates/cart.html public/  # Основная копия
+          # Дублируем cart.html в корень
+          cp templates/cart.html .
           
-          # 3. Проверка структуры
-          echo "Файлы в корне public:"
-          ls -la public/
-          echo "Проверка cart.html:"
-          ls -la public/cart.html\
-          echo "Проверка templates:"
-          ls -la public/templates/cart.html
+          # Проверка (с абсолютными путями)
+          echo "=== Проверка структуры ==="
+          pwd
+          ls -la
+          echo "=== cart.html ==="
+          ls -la cart.html
+          echo "=== templates/ ==="
+          ls -la templates/cart.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
