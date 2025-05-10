@@ -12,7 +12,10 @@ app = Flask(__name__, static_folder='../frontend/static', static_url_path='/stat
 CORS(app, 
      resources={
          r"/api/*": {
-             "origins": ["https://ulyanaast.github.io"],
+             "origins": [
+                 "https://ulyanaast.github.io",
+                 "https://ulyanasst.github.io"
+             ],
              "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
              "allow_headers": ["Content-Type"],
              "supports_credentials": True,
