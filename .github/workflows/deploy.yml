@@ -23,26 +23,16 @@ jobs:
           # Копируем ВСЁ из frontend
           cp -r frontend/* public/
           
-          # Явно копируем cart.html из templates в корень public
-          cp frontend/templates/cart.html public/
+          # Явно копируем cart.html
+          cp frontend/templates/cart.html public/  # Основная копия
           
-          # Проверяем структуру (для отладки)
-          echo "Содержимое public:"
+          # 3. Проверка структуры
+          echo "Файлы в корне public:"
           ls -la public/
-          echo "Проверка cart.html в корне:"
-          ls -la public/cart.html
-          echo "Проверка cart.html в templates:"
+          echo "Проверка cart.html:"
+          ls -la public/cart.html\
+          echo "Проверка templates:"
           ls -la public/templates/cart.html
-
-      - name: Force copy cart.html
-        run: |
-          mkdir -p public
-          # Основные файлы
-          cp -r frontend/* public/
-          # Явное копирование с новым именем для теста
-          cp frontend/templates/cart.html public/cart_final.html
-          # Проверка
-          ls -la public/cart* public/templates/cart*
 
       - uses: actions/upload-pages-artifact@v3
         with:
