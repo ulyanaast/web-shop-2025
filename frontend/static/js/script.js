@@ -103,22 +103,6 @@ function showError(error) {
     }
 }
 
-
-// Уведомление
-function showNotification(productName) {
-    const notification = document.createElement('div');
-    notification.className = 'position-fixed bottom-0 end-0 p-3';
-    notification.innerHTML = `
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>${productName}</strong> добавлен в корзину!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    `;
-    document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 3000);
-}
-
-
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('products-list')) loadProducts();
