@@ -1,6 +1,23 @@
 const API_BASE_URL = window.BASE_URL || 'https://ast-backend-rw3h.onrender.com';
 
+// Идентификатор устройства
+const getDeviceId = () => {
+    let deviceId = localStorage.getItem('device_id');
+    if (!deviceId) {
+        deviceId = 'device-' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('device_id', deviceId);
+    }
+    return deviceId;
+};
+
 const updateOrdersUI = async () => {
+  try {
+  const deviceId = getDeviceId();
+  const response = await fetch(`${API_BASE_URL}/api/admin/orders`, {
+      headers: {
+          'X-Device-ID': deviceId
+      }
+  });
   try {
     const response = await fetch(`${API_BASE_URL}/api/admin/orders`);
     const orders = await response.json();
