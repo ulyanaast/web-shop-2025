@@ -20,6 +20,7 @@ jobs:
           mkdir -p public
           cp -r frontend/* public/
           cp frontend/templates/cart.html public/
+          cp frontend/templates/orders.html public/  # Добавлена эта строка
           
           # Создаем конфиг с базовым URL
           echo '{ "baseUrl": "/web-shop-2025/" }' > public/config.json
@@ -28,10 +29,12 @@ jobs:
         run: |
           ls -la public/static/css/
           ls -la public/static/js/
+          ls -la public/  # Проверяем, что orders.html скопировался
           
-          # Проверка
-          echo "Содержимое public:"
-          ls -la public/
+          # Дополнительная проверка
+          echo "Проверка наличия ключевых файлов:"
+          [ -f public/orders.html ] && echo "orders.html найден" || echo "orders.html НЕ найден"
+          [ -f public/cart.html ] && echo "cart.html найден" || echo "cart.html НЕ найден"
 
       - uses: actions/upload-pages-artifact@v3
         with:
