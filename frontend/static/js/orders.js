@@ -12,16 +12,18 @@ const getDeviceId = () => {
 
 const updateOrdersUI = async () => {
   try {
-  const deviceId = getDeviceId();
-  const response = await fetch(`${API_BASE_URL}/api/admin/orders`, {
-      headers: {
-          'X-Device-ID': deviceId
-      }
-  });
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/admin/orders`);
+    const deviceId = getDeviceId();
+    const response = await fetch(`${API_BASE_URL}/api/admin/orders`, {
+        headers: {
+            'X-Device-ID': deviceId
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const orders = await response.json();
-    
     const groupedOrders = groupOrdersByDate(orders);
     const ordersList = document.getElementById('orders-list');
     
