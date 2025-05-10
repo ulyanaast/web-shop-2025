@@ -164,7 +164,7 @@ def admin_panel():
     return send_from_directory('../frontend/templates', 'admin.html')
 
 @app.route('/cart')
-def cart_page():
+def serve_cart():
     return send_from_directory('../frontend/templates', 'cart.html')
 
 @app.route('/static/<path:filename>')
