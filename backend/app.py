@@ -8,13 +8,15 @@ from flask_cors import CORS
 
 app = Flask(__name__, static_folder='../frontend/static', static_url_path='/static')
 
-# Настройки CORS для GitHub Pages
+# Настройки CORS
 CORS(app, 
      resources={
          r"/api/*": {
              "origins": [
                  "https://ulyanaast.github.io",
-                 "https://ulyanasst.github.io"
+                 "https://ulyanasst.github.io",
+                 "http://localhost:*",  # Для локальной разработки
+                 "https://ast-backend-rw3h.onrender.com"
              ],
              "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
              "allow_headers": ["Content-Type"],
