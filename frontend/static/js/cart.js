@@ -2,55 +2,62 @@
 const BASE_URL = '/web-shop-2025';
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-// Загрузка стилей корзины
-function loadCartStyles() {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = `${BASE_URL}/static/css/cart.css`;
-    document.head.appendChild(link);
-}
-
-// Работа с корзиной
+// Простая функция добавления в корзину
 function addToCart(product) {
-    // Добавляем baseUrl к путям изображений
-    if (product.image && !product.image.startsWith('http')) {
-        product.image = `${BASE_URL}${product.image}`;
-    }
+    // Сохраняем оригинальные данные без изменений
     cart.push(product);
     updateCart();
 }
 
+// Обновление отображения корзины
 function updateCart() {
-    const decodedCart = cart.map(item => ({
-        ...item,
-        name: decodeURIComponent(item.name),
-        // Исправляем путь к изображению
-        image: item.image.startsWith('http') ? item.image : BASE_URL + item.image
-    }));
-
-    localStorage.setItem('cart', JSON.stringify(decodedCart));
-
+    // Сохраняем текущую корзину
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
     const cartItems = document.getElementById('cart-items');
-    if (cartItems) {
-        cartItems.innerHTML = decodedCart.map((item, index) => `
-            <li class="cart-item">
+    if (!cartItems) return;
+    
+    // Очищаем корзину перед обновлением
+    cartItems.innerHTML = '';
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<div class="empty-cart">Корзина пуста</div>';
+    } else {
+        cart.forEach((item, index) => {
+            const cartItem = document.createElement('li');
+            cartItem.className = 'cart-item';
+            
+            // Формируем правильный путь к изображению
+            let imageUrl = item.image;
+            if (imageUrl && !imageUrl.startsWith('http')) {
+                imageUrl = imageUrl.startsWith('/') 
+                    ? BASE_URL + imageUrl
+                    : BASE_URL + '/' + imageUrl;
+            }
+            
+            cartItem.innerHTML = `
                 <div class="cart-content-wrapper">
-                    <img src="${item.image}" class="cart-item-thumbnail" alt="${item.name}">
+                    <img src="${imageUrl || BASE_URL + '/static/uploads/no-image.jpg'}" 
+                         class="cart-item-thumbnail" 
+                         alt="${item.name || 'Товар'}">
                     <div class="product-text-container">
-                        <span class="product-name">${item.name}</span>
-                        <span class="price">${item.price} руб.</span>
+                        <span class="product-name">${item.name || 'Без названия'}</span>
+                        <span class="price">${item.price || 0} руб.</span>
                     </div>
                     <button class="remove-btn" data-index="${index}">×</button>
                 </div>
-            </li>
-        `).join('');
+            `;
+            cartItems.appendChild(cartItem);
+        });
     }
-
-    const total = decodedCart.reduce((sum, item) => sum + item.price, 0);
-    document.getElementById('cart-count').textContent = decodedCart.length;
-    document.getElementById('header-cart-count').textContent = decodedCart.length;
+    
+    // Обновляем счётчики
+    const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+    document.getElementById('cart-count').textContent = cart.length;
+    document.getElementById('header-cart-count').textContent = cart.length;
     document.getElementById('cart-total').textContent = total.toFixed(2);
-
+    
+    // Вешаем обработчики удаления
     document.querySelectorAll('.remove-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             cart.splice(parseInt(btn.dataset.index), 1);
@@ -59,7 +66,7 @@ function updateCart() {
     });
 }
 
-// Оформление заказа
+// Оформление заказа (оставляем без изменений)
 function setupCheckout() {
     const checkoutBtn = document.getElementById('checkout-btn');
     if (checkoutBtn) {
@@ -91,7 +98,6 @@ function setupCheckout() {
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-    loadCartStyles();
     updateCart();
     setupCheckout();
 });
