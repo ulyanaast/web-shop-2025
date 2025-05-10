@@ -1,14 +1,10 @@
 // Делаю функцию addToCart глобально доступной
 window.addToCart = function(product) {
-    // Отправляем событие с данными товара
     const event = new CustomEvent('cartNeedsUpdate', { 
         detail: product 
     });
     document.dispatchEvent(event);
 };
-
-// Корзина
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // DOM элементы (кэшируем для производительности)
 const elements = {
@@ -31,19 +27,12 @@ async function loadProducts() {
             headers: { 'Accept': 'application/json' }
         });
 
-        console.log("Статус ответа:", response.status);
-
         if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
 
         const products = await response.json();
-        console.log('Полученные товары:', products);
-
+        
         if (!elements.productsList) {
             throw new Error("Контейнер для товаров не найден");
-        }
-
-        if (!Array.isArray(products)) {
-            throw new Error("Данные не являются массивом");
         }
 
         renderProducts(products);
@@ -85,16 +74,15 @@ function renderProducts(products) {
 
     // Добавляем обработчики для всех кнопок "Купить"
     document.querySelectorAll('.buy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        window.addToCart({
-            id: btn.dataset.id,
-            name: decodeURIComponent(btn.dataset.name),
-            price: parseFloat(btn.dataset.price),
-            image: btn.dataset.image
+        btn.addEventListener('click', () => {
+            window.addToCart({
+                id: btn.dataset.id,
+                name: decodeURIComponent(btn.dataset.name),
+                price: parseFloat(btn.dataset.price),
+                image: btn.dataset.image
+            });
         });
-    });
-});
-    });
+    }); // <- Здесь была лишняя скобка
 }
 
 // Обработка ошибок
