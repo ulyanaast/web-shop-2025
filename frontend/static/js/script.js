@@ -97,12 +97,6 @@ function showError(error) {
     }
 }
 
-// Добавление в корзину
-function addToCart(product) {
-    cart.push(product);
-    updateCart();
-    showNotification(product.name);
-}
 
 // Уведомление
 function showNotification(productName) {
@@ -118,71 +112,8 @@ function showNotification(productName) {
     setTimeout(() => notification.remove(), 3000);
 }
 
-// Обновление корзины
-function updateCart() {
-    // Сохраняем в localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Обновляем счетчики
-    if (elements.cartCount) elements.cartCount.textContent = cart.length;
-    if (elements.headerCartCount) elements.headerCartCount.textContent = cart.length;
-    
-    // Обновляем список товаров в корзине
-    if (elements.cartItems) {
-        elements.cartItems.innerHTML = cart.map((item, index) => `
-            <li class="cart-item d-flex justify-content-between align-items-center p-2 mb-2 bg-white rounded">
-                <span>${item.name} - ${item.price} руб.</span>
-                <button class="btn btn-danger btn-sm rounded-circle remove-btn" data-index="${index}">×</button>
-            </li>
-        `).join('');
-
-        // Обработчики удаления
-        document.querySelectorAll('.remove-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                cart.splice(parseInt(btn.dataset.index), 1);
-                updateCart();
-            });
-        });
-    }
-    
-    // Обновляем итоговую сумму
-    if (elements.cartTotal) {
-        elements.cartTotal.textContent = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
-    }
-}
-
-// Оформление заказа
-function setupCheckout() {
-    if (elements.checkoutBtn) {
-        elements.checkoutBtn.addEventListener('click', async () => {
-            if (cart.length === 0) {
-                alert('Корзина пуста!');
-                return;
-            }
-            
-            try {
-                const response = await fetch('https://ast-backend-rw3h.onrender.com/api/order', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ items: cart })
-                });
-
-                if (!response.ok) throw new Error(await response.text());
-                
-                cart = [];
-                updateCart();
-                alert('Заказ успешно оформлен!');
-            } catch (error) {
-                console.error('Ошибка оформления заказа:', error);
-                alert(`Ошибка: ${error.message}`);
-            }
-        });
-    }
-}
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-    if (elements.productsList) loadProducts();
-    updateCart();
-    setupCheckout();
+    if (document.getElementById('products-list')) loadProducts();
 });
