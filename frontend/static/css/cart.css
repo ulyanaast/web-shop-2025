@@ -138,6 +138,7 @@ header .nav-icon .badge {
     
     .product-text-container {
         flex-wrap: wrap;
+        overflow: hidden;
     }
     
     .product-name {
@@ -157,14 +158,17 @@ header .nav-icon .badge {
     }
     
     .remove-btn {
-        position: static;
-        transform: none;
-        margin-left: 10px;
+        margin-left: auto; /* Это переместит кнопку вправо внутри контейнера */
+        margin-right: 0;
     }
 
     .cart-item {
         flex-wrap: nowrap;
         padding-right: 15px;
+    }
+    
+    .cart-content-wrapper {
+        gap: 15px; /* Уменьшим промежуток между элементами */
     }
 }
 
