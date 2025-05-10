@@ -20,17 +20,19 @@ jobs:
           # Создаем структуру
           mkdir -p public
           
-          # Копируем ВСЁ содержимое frontend
+          # Копируем ВСЁ из frontend
           cp -r frontend/* public/
           
-          # Явно копируем cart.html в корень (дублируем)
+          # Явно копируем cart.html из templates в корень public
           cp frontend/templates/cart.html public/
           
-          # Проверяем
+          # Проверяем структуру (для отладки)
           echo "Содержимое public:"
           ls -la public/
-          echo "Проверка cart.html:"
+          echo "Проверка cart.html в корне:"
           ls -la public/cart.html
+          echo "Проверка cart.html в templates:"
+          ls -la public/templates/cart.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
