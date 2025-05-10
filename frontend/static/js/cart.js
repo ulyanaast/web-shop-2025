@@ -80,10 +80,17 @@ const setupCheckout = () => {
     checkoutBtn.addEventListener('click', async () => {
       if (!cart.length) return alert('Корзина пуста!');
       
+      const deviceId = localStorage.getItem('device_id') || 
+                      'device-' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('device_id', deviceId);
+      
       try {
         const response = await fetch(`${BASE_URL}/api/order`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Device-ID': deviceId
+          },
           body: JSON.stringify({items: cart})
         });
         
