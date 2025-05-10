@@ -4,6 +4,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Обработчик события добавления в корзину
 document.addEventListener('cartNeedsUpdate', (e) => {
+    console.log("Event received:", e.detail); // Для отладки
     cart.push(e.detail);
     updateCart();
     showNotification(e.detail.name);
@@ -100,8 +101,10 @@ function updateCart() {
     
     // Обновляем все счётчики
     const totalCount = cart.length;
-    document.getElementById('cart-count')?.textContent = totalCount;
-    document.getElementById('header-cart-count')?.textContent = totalCount;
+    const cartCountEl = document.getElementById('cart-count');
+    if (cartCountEl) cartCountEl.textContent = totalCount;
+    const headerCartCountEl = document.getElementById('header-cart-count');
+    if (headerCartCountEl) headerCartCountEl.textContent = totalCount;
     
     // Вызываем глобальную функцию для обновления счётчиков на других страницах
     if (typeof window.updateCartCounters === 'function') {
