@@ -2,22 +2,28 @@
 const BASE_URL = 'https://ast-backend-rw3h.onrender.com';
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// Функция для показа уведомления
+const showRemovedNotification = (removedItems) => {
+  const notification = document.createElement('div');
+  notification.className = 'removed-notification';
+  notification.innerHTML = `
+    <p>${removedItems.length} товар(ов) больше не доступны</p>
+  `;
+  document.body.appendChild(notification);
+  setTimeout(() => notification.remove(), 3000);
+};
+
 // Главная функция обновления UI
 const updateCartUI = () => {
-  // Сохраняем корзину
   localStorage.setItem('cart', JSON.stringify(cart));
-  
-  // Обновляем счётчики
   document.querySelectorAll('#header-cart-count, #cart-count').forEach(el => {
     if (el) el.textContent = cart.length;
   });
 
-  // Рассчитываем общую сумму
   const total = cart.reduce((sum, item) => sum + (item.price || 0), 0);
   const cartTotalEl = document.getElementById('cart-total');
   if (cartTotalEl) cartTotalEl.textContent = total;
 
-  // Обновляем список товаров (если на странице корзины)
   const cartItems = document.getElementById('cart-items');
   if (!cartItems) return;
 
@@ -38,7 +44,6 @@ const updateCartUI = () => {
     `).join('') : 
     '<div class="empty-cart">Корзина пуста</div>';
 
-  // Обработчики удаления
   document.querySelectorAll('.remove-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       cart.splice(parseInt(btn.dataset.index), 1);
@@ -56,18 +61,11 @@ const validateCart = async () => {
     const validIds = new Set(products.map(p => String(p.id)));
     const removedItems = cart.filter(item => !validIds.has(String(item.id)));
     
-    cart = cart
-      .filter(item => validIds.has(String(item.id)))
-      .map(item => {
-        const product = products.find(p => String(p.id) === String(item.id));
-        return product ? {...item, price: product.price} : item;
-      });
-
     if (removedItems.length) {
-      console.log("Удалены неактуальные товары:", removedItems);
+      cart = cart.filter(item => validIds.has(String(item.id)));
+      updateCartUI();
+      showRemovedNotification(removedItems);
     }
-    
-    updateCartUI();
   } catch (error) {
     console.error("Ошибка валидации:", error);
   }
@@ -92,17 +90,15 @@ const setupCheckout = () => {
                 'X-Device-ID': deviceId
             },
             body: JSON.stringify({items: cart}),
-            mode: 'cors' // Явно указываем режим CORS
+            mode: 'cors'
         });
         
         if (!response.ok) throw new Error(await response.text());
         
         cart = [];
-        localStorage.removeItem('cart'); // Очищаем только после успешного оформления
+        localStorage.removeItem('cart');
         updateCartUI();
         alert('Заказ оформлен!');
-        
-        // Перенаправляем на страницу заказов
         window.location.href = '/web-shop-2025/orders.html';
       } catch (error) {
         console.error('Ошибка:', error);
@@ -112,61 +108,13 @@ const setupCheckout = () => {
   }
 };
 
-// Уведомление
-const showNotification = (productName) => {
-  const notification = document.createElement('div');
-  notification.className = 'position-fixed bottom-0 end-0 p-3';
-  notification.innerHTML = `
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>${productName}</strong> добавлен в корзину!
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  `;
-  document.body.appendChild(notification);
-  setTimeout(() => notification.remove(), 3000);
-};
-
-// Обработчики событий
-document.addEventListener('cartNeedsUpdate', (e) => {
-  cart.push({
-    id: Number(e.detail.id),
-    name: e.detail.name,
-    price: parseFloat(e.detail.price),
-    image: e.detail.image
-  });
-  updateCartUI();
-  showNotification(e.detail.name);
-});
-
-window.addEventListener('storage', (e) => {
-  if (e.key === 'cart') {
-    cart = JSON.parse(e.newValue || '[]');
-    updateCartUI();
-  }
-});
-
-// Глобальная функция добавления в корзину
-window.addToCart = (product) => {
-  document.dispatchEvent(new CustomEvent('cartNeedsUpdate', {
-    detail: {
-      id: Number(product.id),
-      name: product.name,
-      price: parseFloat(product.price),
-      image: product.image
-    },
-    bubbles: true,
-    composed: true
-  }));
-};
-
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-  updateCartUI(); // Первоначальное обновление
-  validateCart(); // Валидация при загрузке
-  setupCheckout(); // Настройка кнопки оформления
+  updateCartUI();
+  validateCart();
+  setupCheckout();
 });
 
-// Первоначальное обновление счётчика
 if (document.getElementById('header-cart-count')) {
   document.getElementById('header-cart-count').textContent = cart.length;
 }
