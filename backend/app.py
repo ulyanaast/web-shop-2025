@@ -159,6 +159,10 @@ def admin_delete_product(id):
 def home():
     return send_from_directory('../frontend', 'index.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory('../frontend/static', 'favicon.ico')
+
 @app.route('/admin')
 def admin_panel():
     return send_from_directory('../frontend/templates', 'admin.html')
@@ -170,9 +174,9 @@ def serve_cart():
 def static_files(filename):
     return send_from_directory('../frontend/static', filename)
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory('../frontend/static', 'favicon.ico')
+@app.route('/web-shop-2025/orders')
+def serve_orders():
+    return send_from_directory('../frontend/templates', 'orders.html')
 
 # Дополнительный роут
 @app.route('/api/admin/orders')
