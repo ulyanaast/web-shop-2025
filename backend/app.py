@@ -170,10 +170,6 @@ def serve_cart():
 def static_files(filename):
     return send_from_directory('../frontend/static', filename)
 
-@app.route('/static/<path:filename>')
-def static_files(filename):
-    return send_from_directory('../frontend/static', filename)
-
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory('../frontend/static', 'favicon.ico')
