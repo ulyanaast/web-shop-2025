@@ -38,15 +38,17 @@ def init_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS orders (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            product_name TEXT NOT NULL,
-            price REAL NOT NULL,
-            order_date TEXT DEFAULT CURRENT_TIMESTAMP,
-            device_id TEXT NOT NULL
-        )
-    ''')
+    # Проверяем существование столбца device_id
+    cursor.execute("PRAGMA table_info(orders)")
+    columns = [column[1] for column in cursor.fetchall()]
+    
+    if 'device_id' not in columns:
+        # Безопасное добавление столбца с default значением
+        cursor.execute('''
+            ALTER TABLE orders 
+            ADD COLUMN device_id TEXT DEFAULT 'default_device'
+        ''')
+    
     conn.commit()
     conn.close()
 
@@ -182,11 +184,8 @@ def serve_orders():
 # Дополнительные роуты
 @app.route('/api/admin/orders')
 def get_orders():
-    device_id = request.headers.get('X-Device-ID') or request.cookies.get('device_id')
+    device_id = request.headers.get('X-Device-ID') or request.cookies.get('device_id') or 'default_device'
     
-    if not device_id:
-        return jsonify({"error": "Device ID not found"}), 400
-        
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
