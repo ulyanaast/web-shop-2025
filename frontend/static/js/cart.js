@@ -2,80 +2,6 @@
 const BASE_URL = 'https://ast-backend-rw3h.onrender.com';
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-if (document.getElementById('header-cart-count')) {
-    document.getElementById('header-cart-count').textContent = cart.length;
-}
-
-// Глобальные методы
-window.updateCartUI = updateCartUI;
-window.addToCart = (product) => {
-  document.dispatchEvent(new CustomEvent('cartNeedsUpdate', {
-    detail: product,
-    bubbles: true,
-    composed: true
-  }));
-};
-
-// Обработчики событий добавления в корзину
-document.addEventListener('cartNeedsUpdate', (e) => {
-  cart.push({...e.detail, id: Number(e.detail.id)});
-  updateCartUI();
-  showNotification(e.detail.name);
-});
-
-window.addEventListener('storage', (e) => {
-  if (e.key === 'cart') {
-    cart = JSON.parse(e.newValue || '[]');
-    updateCartUI();
-  }
-});
-
-// Функция добавления в корзину
-window.addToCart = function(product) {
-    document.dispatchEvent(new CustomEvent('cartNeedsUpdate', {
-        detail: {
-            id: Number(product.id),
-            name: product.name,
-            price: product.price,
-            image: product.image
-        },
-        bubbles: true,
-        composed: true
-    }));
-};
-
-// Обновление товаров в корзине при их внутреннем изменении
-let cachedProducts = [];
-// Валидация корзины
-const validateCart = async () => {
-  try {
-    if (!cachedProducts.length) {
-      cachedProducts = await (await fetch(`${BASE_URL}/api/products`)).json();
-    }
-    
-    const validIds = new Set(cachedProducts.map(p => String(p.id)));
-    const removedItems = cart.filter(item => !validIds.has(String(item.id)));
-    
-    cart = cart
-      .filter(item => validIds.has(String(item.id)))
-      .map(item => {
-        const product = cachedProducts.find(p => String(p.id) === String(item.id));
-        return product ? {...item, price: product.price} : item;
-      });
-
-    if (removedItems.length) {
-      console.log("Удалены неактуальные товары:", removedItems);
-      alert(`Удалено ${removedItems.length} неактуальных товаров.`);
-    }
-    
-    updateCartUI();
-  } catch (error) {
-    console.error("Ошибка валидации:", error);
-  }
-};
-
-
-// Обновление отображения корзины
 // Главная функция обновления UI
 const updateCartUI = () => {
   // Сохраняем корзину
@@ -85,6 +11,11 @@ const updateCartUI = () => {
   document.querySelectorAll('#header-cart-count, #cart-count').forEach(el => {
     if (el) el.textContent = cart.length;
   });
+
+  // Рассчитываем общую сумму
+  const total = cart.reduce((sum, item) => sum + (item.price || 0), 0);
+  const cartTotalEl = document.getElementById('cart-total');
+  if (cartTotalEl) cartTotalEl.textContent = total;
 
   // Обновляем список товаров (если на странице корзины)
   const cartItems = document.getElementById('cart-items');
@@ -114,6 +45,32 @@ const updateCartUI = () => {
       updateCartUI();
     });
   });
+};
+
+// Валидация корзины
+const validateCart = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/products`);
+    const products = await response.json();
+    
+    const validIds = new Set(products.map(p => String(p.id)));
+    const removedItems = cart.filter(item => !validIds.has(String(item.id)));
+    
+    cart = cart
+      .filter(item => validIds.has(String(item.id)))
+      .map(item => {
+        const product = products.find(p => String(p.id) === String(item.id));
+        return product ? {...item, price: product.price} : item;
+      });
+
+    if (removedItems.length) {
+      console.log("Удалены неактуальные товары:", removedItems);
+    }
+    
+    updateCartUI();
+  } catch (error) {
+    console.error("Ошибка валидации:", error);
+  }
 };
 
 // Оформление заказа
@@ -157,9 +114,47 @@ const showNotification = (productName) => {
   setTimeout(() => notification.remove(), 3000);
 };
 
+// Обработчики событий
+document.addEventListener('cartNeedsUpdate', (e) => {
+  cart.push({
+    id: Number(e.detail.id),
+    name: e.detail.name,
+    price: parseFloat(e.detail.price),
+    image: e.detail.image
+  });
+  updateCartUI();
+  showNotification(e.detail.name);
+});
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'cart') {
+    cart = JSON.parse(e.newValue || '[]');
+    updateCartUI();
+  }
+});
+
+// Глобальная функция добавления в корзину
+window.addToCart = (product) => {
+  document.dispatchEvent(new CustomEvent('cartNeedsUpdate', {
+    detail: {
+      id: Number(product.id),
+      name: product.name,
+      price: parseFloat(product.price),
+      image: product.image
+    },
+    bubbles: true,
+    composed: true
+  }));
+};
+
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-  updateCartUI();
-  validateCart();
-  setupCheckout();
+  updateCartUI(); // Первоначальное обновление
+  validateCart(); // Валидация при загрузке
+  setupCheckout(); // Настройка кнопки оформления
 });
+
+// Первоначальное обновление счётчика
+if (document.getElementById('header-cart-count')) {
+  document.getElementById('header-cart-count').textContent = cart.length;
+}
