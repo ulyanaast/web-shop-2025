@@ -6,24 +6,38 @@ if (document.getElementById('header-cart-count')) {
     document.getElementById('header-cart-count').textContent = cart.length;
 }
 
+window.updateCartUI = function() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalCount = cart.length;
+    
+    // Обновляем все возможные счётчики
+    document.querySelectorAll('#header-cart-count, #cart-count').forEach(el => {
+        if (el) el.textContent = totalCount;
+    });
+};
+
 // Обработчик события добавления в корзину
 document.addEventListener('cartNeedsUpdate', (e) => {
-    console.log("Cart update event received", e.detail);
-    // Обновляем корзину
-    cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    // Обновляем все счётчики
-    const counters = document.querySelectorAll('#header-cart-count, #cart-count');
-    counters.forEach(counter => {
-        if (counter) counter.textContent = cart.length;
+    console.log("Товар добавлен:", e.detail);
+    // Обновляем данные в localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(e.detail);
+    localStorage.setItem('cart', JSON.stringify(cart));    
+    // Триггерим событие storage для синхронизации между вкладками
+    const storageEvent = new StorageEvent('storage', {
+        key: 'cart',
+        newValue: JSON.stringify(cart)
     });
+    window.dispatchEvent(storageEvent);    
+    // Немедленное обновление UI
+    window.updateCartUI();
+    showNotification(e.detail.name);
 });
 
 // Синхронизация между вкладками
 window.addEventListener('storage', (e) => {
     if (e.key === 'cart') {
-        cart = JSON.parse(e.newValue || '[]');
-        updateCart();
+        window.updateCartUI();
     }
 });
 
@@ -179,6 +193,7 @@ function showNotification(productName) {
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', async () => {
+    window.updateCartUI();
     await validateCart();
     updateCart();
     setupCheckout();
