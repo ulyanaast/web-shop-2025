@@ -33,7 +33,7 @@ function updateCart() {
         cartItems.innerHTML = decodedCart.map((item, index) => `
             <li class="cart-item">
                 <div class="cart-content-wrapper">
-                    <img src="${item.image}" class="cart-item-thumbnail" alt="${item.name}">
+                    `<img src="${item.image.startsWith('http') ? item.image : BASE_URL + item.image}" class="cart-item-thumbnail" alt="${item.name}">`
                     <div class="product-text-container">
                         <span class="product-name">${item.name}</span>
                         <span class="price">${item.price} руб.</span>
