@@ -1,4 +1,4 @@
-const API_BASE_URL = window.BASE_URL || 'https://ast-backend-rw3h.onrender.com/web-shop-2025';
+const API_BASE_URL = window.BASE_URL || 'https://ast-backend-rw3h.onrender.com';
 
 const updateOrdersUI = async () => {
   try {
