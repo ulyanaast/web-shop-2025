@@ -86,12 +86,13 @@ const setupCheckout = () => {
       
       try {
         const response = await fetch(`${BASE_URL}/api/order`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Device-ID': deviceId
-          },
-          body: JSON.stringify({items: cart})
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Device-ID': deviceId
+            },
+            body: JSON.stringify({items: cart}),
+            mode: 'cors' // Явно указываем режим CORS
         });
         
         if (!response.ok) throw new Error(await response.text());
