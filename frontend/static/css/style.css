@@ -61,7 +61,7 @@ body {
     width: auto !important;
     object-fit: contain;
     display: block !important;
-    margin: 0 50px 0 auto !important;
+    margin: 0 40px 0 auto !important;
     border-radius: 12px !important;
   }
   
@@ -92,7 +92,7 @@ body {
   }
   
   .promo-image {
-    max-height: 300px !important;
+    max-height: 400px !important;
     width: auto !important;
     margin: 2rem auto 40px !important;
     border-radius: 12px !important;
