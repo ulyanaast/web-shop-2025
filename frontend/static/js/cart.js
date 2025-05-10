@@ -108,6 +108,17 @@ const setupCheckout = () => {
   }
 };
 
+// Обработчик добавления товаров
+document.addEventListener('cartNeedsUpdate', (e) => {
+  cart.push({
+    id: Number(e.detail.id),
+    name: e.detail.name,
+    price: parseFloat(e.detail.price),
+    image: e.detail.image
+  });
+  updateCartUI();
+});
+
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
