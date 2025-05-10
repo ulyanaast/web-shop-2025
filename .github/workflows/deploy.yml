@@ -25,7 +25,7 @@ jobs:
           cp -r ../frontend/* .
           
           # Дублируем cart.html в корень
-          cp templates/cart.html .
+          cp ../frontend/templates/cart.html .
           
           # Проверка (с абсолютными путями)
           echo "=== Проверка структуры ==="
