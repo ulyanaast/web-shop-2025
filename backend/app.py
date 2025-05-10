@@ -96,7 +96,7 @@ def save_order():
     conn.close()
     return jsonify({"success": True})
 
-# API для админки (без изменений)
+# API для админки
 @app.route('/api/admin/available-images')
 def get_available_images():
     images = []
@@ -154,7 +154,7 @@ def admin_delete_product(id):
     finally:
         conn.close()
 
-# Статические файлы (исправленные пути)
+# Статические файлы
 @app.route('/')
 def home():
     return send_from_directory('../frontend', 'index.html')
@@ -189,6 +189,10 @@ def get_orders():
         "price": o[2],
         "order_date": o[3]
     } for o in orders])
+
+@app.route('/admin-static/<path:filename>')
+def admin_static(filename):
+    return send_from_directory('../frontend/static', filename)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
