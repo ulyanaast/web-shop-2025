@@ -8,17 +8,15 @@ if (document.getElementById('header-cart-count')) {
 
 // Обработчик события добавления в корзину
 document.addEventListener('cartNeedsUpdate', (e) => {
-    console.log("Event received:", e.detail); // Для отладки
-    cart.push(e.detail);
-    updateCart();
-    showNotification(e.detail.name);
-    // Обновляем счётчик во всех возможных местах
-    const updateHeaderCounter = () => {
-        const headerCounter = document.getElementById('header-cart-count');
-        if (headerCounter) headerCounter.textContent = cart.length;
-    };
-    // Вызываем при любом изменении корзины
-    updateHeaderCounter();
+    console.log("Cart update event received", e.detail);
+    // Обновляем корзину
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Обновляем все счётчики
+    const counters = document.querySelectorAll('#header-cart-count, #cart-count');
+    counters.forEach(counter => {
+        if (counter) counter.textContent = cart.length;
+    });
 });
 
 // Синхронизация между вкладками
