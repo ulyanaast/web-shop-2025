@@ -15,11 +15,11 @@ CORS(app,
              "origins": [
                  "https://ulyanaast.github.io",
                  "https://ulyanasst.github.io",
-                 "http://localhost:*",  # Для локальной разработки
+                 "http://localhost:*",
                  "https://ast-backend-rw3h.onrender.com"
              ],
              "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-             "allow_headers": ["Content-Type"],
+             "allow_headers": ["Content-Type", "X-Device-ID"],  # Добавьте X-Device-ID
              "supports_credentials": True,
              "expose_headers": ["Content-Type"]
          }
@@ -232,6 +232,12 @@ def get_grouped_orders():
         grouped[key]["total"] += o[2]
     
     return jsonify(list(grouped.values()))
+
+@app.route('/api/order', methods=['OPTIONS'])
+def handle_options():
+    response = jsonify({"success": True})
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, X-Device-ID')
+    return response
 
 @app.route('/admin-static/<path:filename>')
 def admin_static(filename):
