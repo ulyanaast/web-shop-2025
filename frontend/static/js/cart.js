@@ -31,14 +31,18 @@ window.addEventListener('storage', (e) => {
 });
 
 // Функция добавления в корзину
-function addToCart(product) {
-    // Приводим ID к числу для единообразия
-    cart.push({
-        ...product,
-        id: Number(product.id)
-    });
-    updateCart();
-}
+window.addToCart = function(product) {
+    document.dispatchEvent(new CustomEvent('cartNeedsUpdate', {
+        detail: {
+            id: Number(product.id),
+            name: product.name,
+            price: product.price,
+            image: product.image
+        },
+        bubbles: true,
+        composed: true
+    }));
+};
 
 // Обновление товаров в корзине при их внутреннем изменении
 let cachedProducts = [];
