@@ -11,8 +11,11 @@ document.addEventListener('cartNeedsUpdate', (e) => {
 
 // Функция добавления в корзину
 function addToCart(product) {
-    // Сохраняем оригинальные данные без изменений
-    cart.push(product);
+    // Приводим ID к числу для единообразия
+    cart.push({
+        ...product,
+        id: Number(product.id)
+    });
     updateCart();
 }
 
@@ -25,25 +28,27 @@ async function validateCart() {
             cachedProducts = await response.json();
         }
 
-        const validIds = new Set(cachedProducts.map(p => p.id));
+        // Приводим ID к одному типу (строкам) для сравнения
+        const validIds = new Set(cachedProducts.map(p => String(p.id)));
         
-        // Удаляем неактуальные товары
-        const removedItems = cart.filter(item => !validIds.has(item.id));
-        cart = cart.filter(item => validIds.has(item.id));
+        // Удаляем неактуальные товары (также приводим ID к строкам)
+        const removedItems = cart.filter(item => !validIds.has(String(item.id)));
+        cart = cart.filter(item => validIds.has(String(item.id)));
         
-        // Обновляем цены
+        // Обновляем цены (с проверкой на существование товара)
         cart = cart.map(item => {
-            const serverProduct = cachedProducts.find(p => p.id === item.id);
+            const serverProduct = cachedProducts.find(p => String(p.id) === String(item.id));
             return serverProduct ? { ...item, price: serverProduct.price } : item;
         });
 
         if (removedItems.length > 0) {
+            console.log("Удаленные товары:", removedItems); // Для отладки
             alert(`Удалено ${removedItems.length} неактуальных товаров.`);
         }
 
         updateCart();
     } catch (error) {
-        console.error("Ошибка:", error);
+        console.error("Ошибка валидации корзины:", error);
     }
 }
 
