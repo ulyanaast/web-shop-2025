@@ -7,6 +7,10 @@ document.addEventListener('cartNeedsUpdate', (e) => {
     cart.push(e.detail);
     updateCart();
     showNotification(e.detail.name);
+    // Принудительное обновление для главной страницы
+    if (window.location.pathname === '/') {
+        document.getElementById('header-cart-count').textContent = cart.length;
+    }
 });
 
 // Функция добавления в корзину
@@ -94,11 +98,15 @@ function updateCart() {
         });
     }
     
-    // Обновляем счётчики
-    const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
-    document.getElementById('cart-count').textContent = cart.length;
-    document.getElementById('header-cart-count').textContent = cart.length;
-    document.getElementById('cart-total').textContent = total.toFixed(2);
+    // Обновляем все счётчики
+    const totalCount = cart.length;
+    document.getElementById('cart-count')?.textContent = totalCount;
+    document.getElementById('header-cart-count')?.textContent = totalCount;
+    
+    // Вызываем глобальную функцию для обновления счётчиков на других страницах
+    if (typeof window.updateCartCounters === 'function') {
+        window.updateCartCounters(totalCount);
+    }
     
     // Вешаем обработчики удаления
     document.querySelectorAll('.remove-btn').forEach(btn => {
