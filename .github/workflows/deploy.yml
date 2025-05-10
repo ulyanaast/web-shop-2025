@@ -23,6 +23,11 @@ jobs:
           
           # Создаем конфиг с базовым URL
           echo '{ "baseUrl": "/web-shop-2025/" }' > public/config.json
+
+      - name: Verify files
+        run: |
+          ls -la public/static/css/
+          ls -la public/static/js/
           
           # Проверка
           echo "Содержимое public:"
