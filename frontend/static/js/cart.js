@@ -68,7 +68,7 @@ document.getElementById('checkout-btn')?.addEventListener('click', async () => {
     }
     
     try {
-        const response = await fetch('http://localhost:5000/api/order', {
+        const response = await fetch('/web-shop-2025/api/order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
