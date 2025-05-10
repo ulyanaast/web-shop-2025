@@ -59,7 +59,7 @@ body {
   .promo-image {
     height: 400px !important;
     width: auto !important;
-    max-width: 100% !important;
+    max-width: 60% !important;
     object-fit: contain;
     display: block !important;
     margin: 0 auto !important;
@@ -76,6 +76,14 @@ body {
   .promo-banner h1 {
     text-align: left !important;
   }
+}
+
+/* Стиль для счётчика корзины */
+#header-cart-count {
+    background-color: var(--accent-color) !important;
+    font-size: 0.7em;
+    padding: 0.35em 0.6em;
+    min-width: 1.8em;
 }
 
 /* Мобильная версия (<992px) */
