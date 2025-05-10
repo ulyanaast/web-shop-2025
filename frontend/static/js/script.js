@@ -1,6 +1,9 @@
 // Делаю функцию addToCart глобально доступной
 window.addToCart = function(product) {
-    const event = new CustomEvent('cartNeedsUpdate', { detail: product });
+    // Отправляем событие с данными товара
+    const event = new CustomEvent('cartNeedsUpdate', { 
+        detail: product 
+    });
     document.dispatchEvent(event);
 };
 
@@ -82,12 +85,15 @@ function renderProducts(products) {
 
     // Добавляем обработчики для всех кнопок "Купить"
     document.querySelectorAll('.buy-btn').forEach(btn => {
-        btn.addEventListener('click', () => addToCart({
+    btn.addEventListener('click', () => {
+        window.addToCart({
             id: btn.dataset.id,
             name: decodeURIComponent(btn.dataset.name),
             price: parseFloat(btn.dataset.price),
             image: btn.dataset.image
-        }));
+        });
+    });
+});
     });
 }
 
