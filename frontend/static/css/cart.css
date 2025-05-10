@@ -160,6 +160,7 @@ header .nav-icon .badge {
         position: static;
         transform: none;
         margin-left: auto;
+        margin-left: 10px;
     }
 
     .cart-item {
