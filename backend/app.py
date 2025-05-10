@@ -186,14 +186,24 @@ def serve_orders():
 def get_orders():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM orders ORDER BY id DESC')
+    
+    # Получаем заказы с информацией о продуктах
+    cursor.execute('''
+        SELECT o.id, o.product_name, o.price, o.order_date, p.image_path
+        FROM orders o
+        LEFT JOIN products p ON o.product_name = p.name
+        ORDER BY o.order_date DESC
+    ''')
+    
     orders = cursor.fetchall()
     conn.close()
+    
     return jsonify([{
         "id": o[0],
         "product_name": o[1],
         "price": o[2],
-        "order_date": o[3]
+        "order_date": o[3],
+        "image": f"{BASE_STATIC_URL}{o[4].split('/')[-1]}" if o[4] else None
     } for o in orders])
 
 @app.route('/api/orders')
