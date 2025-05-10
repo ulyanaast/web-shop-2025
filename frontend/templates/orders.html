@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Мои заказы | Аст</title> 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/web-shop-2025/static/css/style.css">
+    <link rel="stylesheet" href="/web-shop-2025/static/css/orders.css">
+    <link rel="icon" href="/web-shop-2025/static/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet"> 
+</head> 
+<body> 
+    <!-- Шапка -->
+    <header class="bg-white sticky-top shadow-sm py-3">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo">
+                    <img src="/web-shop-2025/static/uploads/logo_red.png" alt="Логотип" height="50">
+                </div> 
+                <nav class="d-flex gap-3"> 
+                    <a href="/web-shop-2025/index.html" class="nav-icon">
+                        <img src="/web-shop-2025/static/uploads/catalog_ic.png" alt="Товары" width="30">
+                    </a>
+                    <a href="/web-shop-2025/orders.html" class="nav-icon">
+                        <img src="/web-shop-2025/static/uploads/orders_ic.png" alt="Заказы" width="30"> 
+                    </a>
+                    <a href="/web-shop-2025/cart.html" class="nav-icon position-relative">
+                        <img src="/web-shop-2025/static/uploads/cart_ic.png" alt="Корзина" width="30">
+                        <span id="header-cart-count" class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-pill">0</span>
+                    </a>
+                </nav>
+            </div>
+        </div> 
+    </header>
+    <main class="container my-5">
+        <!-- Заказы -->
+        <section id="orders" class="p-4 bg-light rounded">
+            <h1 class="font-yeseva mb-4">Мои заказы</h1>
+            <div id="orders-list" class="mb-4"></div>
+        </section>
+    </main>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/web-shop-2025/static/js/cart.js"></script>
+    <script src="/web-shop-2025/static/js/orders.js"></script>
+</body> 
+</html>
