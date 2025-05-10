@@ -39,23 +39,14 @@ def init_db():
     cursor = conn.cursor()
     
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS products (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            price REAL NOT NULL,
-            image_path TEXT
-        )
-    ''')
-    
-    cursor.execute('''
         CREATE TABLE IF NOT EXISTS orders (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             product_name TEXT NOT NULL,
             price REAL NOT NULL,
-            order_date TEXT DEFAULT CURRENT_TIMESTAMP
+            order_date TEXT DEFAULT CURRENT_TIMESTAMP,
+            device_id TEXT NOT NULL
         )
     ''')
-    
     conn.commit()
     conn.close()
 
@@ -85,6 +76,11 @@ def get_products():
 @app.route('/api/order', methods=['POST'])
 def save_order():
     data = request.json
+    device_id = request.headers.get('X-Device-ID') or request.cookies.get('device_id')
+    
+    if not device_id:
+        return jsonify({"error": "Device ID not found"}), 400
+        
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
@@ -93,8 +89,8 @@ def save_order():
     
     for item in data['items']:
         cursor.execute(
-            'INSERT INTO orders (product_name, price, order_date) VALUES (?, ?, ?)',
-            (item['name'], item['price'], current_time)
+            'INSERT INTO orders (product_name, price, order_date, device_id) VALUES (?, ?, ?, ?)',
+            (item['name'], item['price'], current_time, device_id)
         )
     
     conn.commit()
@@ -183,19 +179,24 @@ def static_files(filename):
 def serve_orders():
     return send_from_directory('../frontend/templates', 'orders.html')
 
-# Дополнительные роут
+# Дополнительные роуты
 @app.route('/api/admin/orders')
 def get_orders():
+    device_id = request.headers.get('X-Device-ID') or request.cookies.get('device_id')
+    
+    if not device_id:
+        return jsonify({"error": "Device ID not found"}), 400
+        
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
-    # Получаем заказы с информацией о продуктах
     cursor.execute('''
         SELECT o.id, o.product_name, o.price, o.order_date, p.image_path
         FROM orders o
         LEFT JOIN products p ON o.product_name = p.name
+        WHERE o.device_id = ?
         ORDER BY o.order_date DESC
-    ''')
+    ''', (device_id,))
     
     orders = cursor.fetchall()
     conn.close()
