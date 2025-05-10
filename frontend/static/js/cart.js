@@ -102,8 +102,8 @@ function updateCart() {
     // Обновляем все счётчики
     const totalCount = cart.length;
     const cartCountEl = document.getElementById('cart-count');
-    if (cartCountEl) cartCountEl.textContent = totalCount;
     const headerCartCountEl = document.getElementById('header-cart-count');
+    if (cartCountEl) cartCountEl.textContent = totalCount;
     if (headerCartCountEl) headerCartCountEl.textContent = totalCount;
     
     // Вызываем глобальную функцию для обновления счётчиков на других страницах
