@@ -2,6 +2,10 @@
 const BASE_URL = 'https://ast-backend-rw3h.onrender.com';
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+if (document.getElementById('header-cart-count')) {
+    document.getElementById('header-cart-count').textContent = cart.length;
+}
+
 // Обработчик события добавления в корзину
 document.addEventListener('cartNeedsUpdate', (e) => {
     console.log("Event received:", e.detail); // Для отладки
