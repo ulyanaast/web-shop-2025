@@ -127,13 +127,27 @@ header .nav-icon .badge {
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .order-product-thumbnail {
+        width: 70px;
+        height: 70px;
+    }
     
     .order-product {
-        flex-wrap: wrap;
+        flex-wrap: nowrap; /* Изменили с wrap на nowrap */
+        padding-right: 15px;
+    }
+
+    .order-product-info {
+        flex-wrap: wrap; /* Перенос только текста */
     }
     
     .order-product-name {
         white-space: normal;
         overflow: visible;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        line-height: 1.4;
     }
 }
