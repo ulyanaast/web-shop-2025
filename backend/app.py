@@ -163,7 +163,7 @@ def home():
 def admin_panel():
     return send_from_directory('../frontend/templates', 'admin.html')
 
-@app.route('/cart')
+@app.route('/web-shop-2025/cart')
 def serve_cart():
     return send_from_directory('../frontend/templates', 'cart.html')
 
