@@ -3,74 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Аст</title>
-    <!-- Bootstrap CSS -->
+    <meta name="description" content="Магазин современной классики Ульяны Аст - элегантность и премиальное качество">
+    <title>Ульяна Аст - современная классика</title>
+    
+    <!-- Подключение стилей -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Основные стили -->
     <link rel="stylesheet" href="/web-shop-2025/static/css/style.css">
-    <!-- Фавикон -->
     <link rel="icon" href="/web-shop-2025/static/favicon.ico" type="image/x-icon">
-    <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Шапка -->
-    <header class="main-header bg-white sticky-top shadow-sm py-3">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="logo">
-                    <img src="/web-shop-2025/static/uploads/logo_red.png" alt="Логотип" height="50">
-                </div>
-                <nav class="header-nav d-flex gap-3">
-                    <a href="#" class="nav-icon position-relative" title="Товары">
-                        <img src="/web-shop-2025/static/uploads/catalog_ic.png" alt="Каталог" width="30">
-                    </a>
-                    <a href="/web-shop-2025/orders" class="nav-icon">
-                        <img src="/web-shop-2025/static/uploads/orders_ic.png" alt="Заказы" width="30"> 
-                    </a>
-                    <a href="cart.html" class="nav-icon position-relative" title="Корзина">
-                        <img src="/web-shop-2025/static/uploads/cart_ic.png" alt="Корзина" width="30">
-                        <span id="header-cart-count" class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-pill">0</span>
-                    </a>
+<body class="page">
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="header__container container">
+            <div class="header__content">
+                <a href="/" class="header__logo">
+                    <img src="/web-shop-2025/static/uploads/logo_red.png" alt="Логотип Ульяна Аст" height="50" width="150">
+                </a>
+                
+                <nav class="header__nav">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#" class="nav__link nav__link--icon" title="Каталог товаров">
+                                <img src="/web-shop-2025/static/uploads/catalog_ic.png" alt="Каталог" width="30" height="30" class="nav__icon">
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="/web-shop-2025/orders" class="nav__link nav__link--icon" title="Мои заказы">
+                                <img src="/web-shop-2025/static/uploads/orders_ic.png" alt="Заказы" width="30" height="30" class="nav__icon">
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="/web-shop-2025/cart" class="nav__link nav__link--icon" title="Корзина">
+                                <img src="/web-shop-2025/static/uploads/cart_ic.png" alt="Корзина" width="30" height="30" class="nav__icon">
+                                <span id="header-cart-count" class="nav__counter">0</span>
+                            </a>
+                        </li>
+                    </ul>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- Промо-блок -->
-    <section class="promo-banner">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Текст -->
-                <div class="col-lg-6 order-lg-2 order-1">
-                    <h1 class="font-yeseva display-4 mb-4">Простота — ключ к истинной элегантности.</h1>
-                    <p class="mb-3 fs-5">Добро пожаловать в мир <strong>Ульяны Аст</strong> — бренда, который несёт в себе современную классику, элегантность и премиальное качество.</p>
-                    <p class="mb-3 fs-5">Наша коллекция выполнена исключительно в чёрном и бордовом оттенках. Всё сочетается между собой.</p>
-                    <p class="mb-0 fs-5">Стиль. Неумолимость. Уверенность. Безвременье. Женственность.</p>
-                </div>
-                
-                <!-- Изображение -->
-                <div class="col-lg-6 order-lg-1 order-2 text-center">
-                    <img src="/web-shop-2025/static/uploads/two.png" alt="О бренде" class="img-fluid promo-image rounded">
+    <!-- Основное содержимое -->
+    <main class="main">
+        <!-- Промо-блок -->
+        <section class="promo">
+            <div class="promo__container container">
+                <div class="promo__content row align-items-center">
+                    <div class="promo__text col-lg-6 order-lg-2 order-1">
+                        <h1 class="promo__title">Простота — ключ к истинной элегантности.</h1>
+                        <p class="promo__description">Добро пожаловать в мир <strong>Ульяны Аст</strong> — бренда, который несёт в себе современную классику, элегантность и премиальное качество.</p>
+                        <p class="promo__description">Наша коллекция выполнена исключительно в чёрном и бордовом оттенках. Всё сочетается между собой.</p>
+                        <p class="promo__description">Стиль. Неумолимость. Уверенность. Безвременье. Женственность.</p>
+                    </div>
+                    
+                    <div class="promo__image-wrapper col-lg-6 order-lg-1 order-2">
+                        <img src="/web-shop-2025/static/uploads/two.png" alt="Коллекция Ульяны Аст" class="promo__image">
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <main class="container my-5">
-        <!-- Товары -->
-        <section id="products" class="products-section">
-            <h2 class="font-yeseva text-center mb-4 display-5">Наш ассортимент</h2>
-            <div id="products-list" class="row g-4"></div>
+        <!-- Секция с товарами -->
+        <section class="products">
+            <div class="products__container container">
+                <h2 class="products__title">Наш ассортимент</h2>
+                <div id="products-list" class="products__list row g-4"></div>
+            </div>
         </section>
     </main>
 
-    <!-- Bootstrap JS + Popper -->
+    <!-- Подключение скриптов -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Основной скрипт -->
-    <script src="/web-shop-2025/static/js/cart.js"></script>   <!-- Корзина -->
-    <script src="/web-shop-2025/static/js/script.js"></script>  <!-- Товары -->
-    <script>
-</script>
+    <script src="/web-shop-2025/static/js/cart.js"></script>
+    <script src="/web-shop-2025/static/js/script.js"></script>
 </body>
 </html>
