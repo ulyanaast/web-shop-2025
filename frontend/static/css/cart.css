@@ -1,11 +1,5 @@
-/* Шапка на странице корзины */
-header .nav-icon .badge {
-    background-color: #800020 !important;
-    color: white;
-}
-
-/* Общие стили корзины */
-#cart {
+/* Блок корзины */
+.cart {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -13,18 +7,22 @@ header .nav-icon .badge {
     margin-bottom: 2rem;
 }
 
-#cart h1 {
+.cart__title {
     background-color: var(--accent-color);
     color: white;
     font-family: 'Yeseva One', serif;
     font-weight: normal;
     padding: 1rem;
-    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    margin: -2rem -2rem 2rem -2rem;
     text-align: center;
     border-radius: 8px 8px 0 0;
 }
 
 /* Элементы корзины */
+.cart__items {
+    margin-bottom: 2rem;
+}
+
 .cart-item {
     display: flex;
     align-items: center;
@@ -36,53 +34,43 @@ header .nav-icon .badge {
     transition: all 0.3s ease;
 }
 
-.cart-content-wrapper {
+.cart-item__content {
     display: flex;
     align-items: center;
     flex-grow: 1;
-    gap: 30px;
+    gap: 1.5rem;
 }
 
-.cart-item-thumbnail {
+.cart-item__image {
     width: 90px;
     height: 90px;
     object-fit: contain;
     border-radius: 4px;
-    border: 1px solid #eee;
+    border: 1px solid var(--border-color);
     flex-shrink: 0;
 }
 
-/* Блок с названием и ценой */
-.product-text-container {
-    font-size: 1.2rem;
+.cart-item__info {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     flex-grow: 1;
     min-width: 0;
-    gap: 8px;
-    white-space: nowrap;
 }
 
-.product-name {
+.cart-item__name {
+    font-size: 1.2rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    flex-shrink: 1;
-    min-width: 0;
 }
 
-.price {
-    white-space: nowrap;
-    flex-shrink: 0;
+.cart-item__price {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    margin-top: 0.5rem;
 }
 
-.price::before {
-    content: "—";
-    margin: 0 5px;
-}
-
-/* Кнопка удаления */
-.remove-btn {
+.cart-item__remove {
     width: 30px;
     height: 30px;
     display: flex;
@@ -94,27 +82,31 @@ header .nav-icon .badge {
     border-radius: 50%;
     cursor: pointer;
     flex-shrink: 0;
-    margin-left: 10px;
+    margin-left: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.cart-item__remove:hover {
+    background-color: var(--accent-hover);
 }
 
 /* Футер корзины */
-.cart-footer {
+.cart__footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem;
     padding-top: 1.5rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
-.cart-total {
+.cart__total {
     font-family: 'Yeseva One', serif;
     font-size: 1.5rem;
-    color: var(--text-on-light);
     margin: 0;
 }
 
-#checkout-btn {
+.cart__checkout-btn {
     font-family: 'Yeseva One', serif;
     padding: 0.75rem 2rem;
     font-size: 1.1rem;
@@ -122,70 +114,28 @@ header .nav-icon .badge {
     background-color: var(--accent-color);
     border: none;
     color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Общие стили для всех уведомлений */
+.cart__checkout-btn:hover {
+    background-color: var(--accent-hover);
+}
+
+/* Уведомления */
 .notification {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #800020; /* Бордовый для всех уведомлений */
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  z-index: 1000;
-  animation: slideInUp 0.3s ease forwards;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    animation: slideInUp 0.3s ease forwards;
 }
 
-/* Мобильная версия */
-@media (max-width: 767.98px) {
-    .cart-item {
-        flex-wrap: nowrap;
-        padding-right: 15px;
-    }
-    
-    .cart-item-thumbnail {
-        width: 70px;
-        height: 70px;
-    }
-    
-    .product-text-container {
-        flex-wrap: wrap;
-        overflow: hidden;
-    }
-    
-    .product-name {
-        white-space: normal;
-        overflow: visible;
-        line-clamp: 2;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-    }
-    
-    .price::before {
-        content: "—";
-        margin: 0 5px;
-    }
-    .price {
-        white-space: nowrap;
-    }
-    
-    .remove-btn {
-        margin-left: auto; /* Это переместит кнопку вправо внутри контейнера */
-        margin-right: 0;
-    }
-
-    .cart-item {
-        flex-wrap: nowrap;
-        padding-right: 15px;
-    }
-    
-    .cart-content-wrapper {
-        gap: 15px; /* Уменьшим промежуток между элементами */
-    }
-}
-
-/* Анимация уведомлений */
+/* Анимация */
 @keyframes slideInUp {
     from {
         transform: translateY(100%);
@@ -197,6 +147,41 @@ header .nav-icon .badge {
     }
 }
 
-.alert-success {
-    animation: slideInUp 0.3s ease forwards;
+/* Адаптивность */
+@media (max-width: 767.98px) {
+    .cart-item {
+        flex-wrap: wrap;
+        padding: 0.75rem;
+    }
+    
+    .cart-item__content {
+        gap: 0.75rem;
+        width: 100%;
+    }
+    
+    .cart-item__image {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .cart-item__name {
+        white-space: normal;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .cart-item__remove {
+        margin-left: auto;
+    }
+    
+    .cart__footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .cart__checkout-btn {
+        width: 100%;
+    }
 }
