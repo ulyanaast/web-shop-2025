@@ -1,16 +1,24 @@
+/* Основные переменные */
 :root {
-    --accent: #800020;
+    --accent-color: #800020;
+    --accent-hover: #600018;
     --light-bg: #f5f5f5;
+    --border-color: #ddd;
+    --text-color: #333;
+    --text-light: #666;
 }
 
-body {
+/* Базовые стили */
+.admin-page {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
     background-color: #f9f9f9;
+    color: var(--text-color);
 }
 
-.admin-container {
+/* Блок admin */
+.admin {
     max-width: 1200px;
     margin: 0 auto;
     background: white;
@@ -19,19 +27,19 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.admin-container h1 {
+.admin__title {
     font-family: 'Yeseva One', serif;
     font-weight: normal;
     text-align: center;
     font-size: 2rem;
     color: white;
-    background-color: #800020;
+    background-color: var(--accent-color);
     padding: 20px;
     margin: -20px -20px 20px -20px;
     border-radius: 8px 8px 0 0;
 }
 
-.admin-container h2 {
+.admin__subtitle {
     font-family: 'Yeseva One', serif;
     font-weight: normal;
     text-align: center;
@@ -39,49 +47,90 @@ body {
     margin: 30px 0 20px;
 }
 
-.form-group {
+.admin__counter {
+    color: var(--accent-color);
+}
+
+/* Блок admin-form */
+.admin-form {
+    margin-bottom: 30px;
+}
+
+.admin-form__group {
     margin-bottom: 15px;
 }
 
-label {
+.admin-form__label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-input[type="text"],
-input[type="number"] {
+.admin-form__input {
     padding: 8px;
     width: 100%;
     max-width: 400px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
 }
 
-button {
-    background: var(--accent);
+.admin-form__upload {
+    margin-top: 10px;
+}
+
+.admin-form__file-input {
+    display: none;
+}
+
+.admin-form__browse-btn {
+    background: var(--light-bg);
+    color: var(--text-color);
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.admin-form__file-name {
+    color: var(--text-light);
+    font-size: 0.9em;
+}
+
+.admin-form__submit {
+    background: var(--accent-color);
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
-.product-grid {
+.admin-form__submit:hover {
+    background: var(--accent-hover);
+}
+
+/* Блок admin-products */
+.admin-products {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     margin-top: 20px;
 }
 
-.product-card {
+.admin-product {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
 }
 
-.product-image {
+.admin-product__image {
     width: 100%;
     height: 200px;
     object-fit: contain;
@@ -89,54 +138,40 @@ button {
     margin-bottom: 10px;
 }
 
-.product-info {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.product-info h3,
-.product-info p {
-    text-align: center;
-    width: 100%;
-}
-
-.no-image {
+.admin-product__no-image {
     height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #eee;
-    color: #666;
+    background: var(--light-bg);
+    color: var(--text-light);
+    width: 100%;
 }
 
-.delete-btn {
-    background: #800020;
+.admin-product__info {
+    width: 100%;
+}
+
+.admin-product__name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.admin-product__price {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.admin-product__delete {
+    background: var(--accent-color);
     color: white;
     border: none;
-    padding: 10px 15px;
-    margin-top: 10px;
-    cursor: pointer;
-    width: auto;
-    margin-top: 15px;
-}
-
-.image-upload-container {
-    margin-top: 10px;
-}
-
-#browse-btn {
-    background: #dcdcdcae;
-    color: rgb(0, 0, 0);
     padding: 8px 15px;
     border-radius: 4px;
     cursor: pointer;
-    display: inline-block;
-    margin-right: 10px;
+    transition: background 0.3s;
 }
 
-#file-name {
-    color: #666;
-    font-size: 0.9em;
+.admin-product__delete:hover {
+    background: var(--accent-hover);
 }
