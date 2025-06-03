@@ -105,7 +105,8 @@
     font-size: 2rem;
 }
 
-/* Стили для кнопок "Купить" */
+
+/* Стили для кнопки "Купить" */
 .btn-buy {
     background-color: var(--accent-color) !important;
     border-color: var(--accent-color) !important;
@@ -118,7 +119,7 @@
     border-color: var(--accent-hover) !important;
 }
 
-/* Если кнопки создаются через Bootstrap */
+/* Переопределение стандартных bootstrap кнопок */
 .btn-primary {
     background-color: var(--accent-color) !important;
     border-color: var(--accent-color) !important;
