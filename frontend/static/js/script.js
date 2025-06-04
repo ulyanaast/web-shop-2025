@@ -40,17 +40,12 @@ async function loadProducts() {
             credentials: 'include',
             headers: { 'Accept': 'application/json' }
         });
-
         if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-
         const products = await response.json();
-        
         if (!elements.productsList) {
             throw new Error("Контейнер для товаров не найден");
         }
-
         renderProducts(products);
-
     } catch (error) {
         console.error("Ошибка при загрузке товаров:", error);
         showError(error);
